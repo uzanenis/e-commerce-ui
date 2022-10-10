@@ -1,11 +1,12 @@
 <template>
-  <v-app>
+  <div>
+    <v-app>
+      <v-main class="pa-0">
+        <router-view/>
+      </v-main>
+    </v-app>
+  </div>
 
-
-    <v-main>
-      <router-view/>
-    </v-main>
-  </v-app>
 </template>
 
 <script>
