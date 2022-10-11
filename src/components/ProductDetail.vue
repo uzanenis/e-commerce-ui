@@ -20,7 +20,7 @@
         >
           <v-card>
             <v-card-title>Ürün Adı</v-card-title>
-            <v-card-text>Ürün açıklamaı</v-card-text>
+            <v-card-text>Ürün açıklaması</v-card-text>
           </v-card>
         </v-col>
       </v-row>
