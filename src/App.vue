@@ -11,11 +11,23 @@
 
 <script>
 
+import {mapGetters} from "vuex";
+
 export default {
   name: 'App',
 
   data: () => ({
     //
   }),
+  computed: {
+    ...mapGetters({
+      accessToken: 'login/getAccessToken'
+    })
+  },
+  mounted() {
+    if (!this.accessToken) {
+      this.$router.push({path: '/login', replace: true})
+    }
+  }
 };
 </script>

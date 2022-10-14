@@ -1,6 +1,14 @@
+import getters from "@/store/login/getters";
+import mutations from "@/store/login/mutations";
+import actions from "@/store/login/actions";
 export default {
     namespaced: true,
     state: {
-        restApi: 'localhost:8000',
-    }
+        restApi: 'http://localhost:8000',
+        accessToken: '',
+        refreshToken: '',
+    },
+    getters,
+    mutations,
+    actions,
 }

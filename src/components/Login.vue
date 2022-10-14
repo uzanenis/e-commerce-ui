@@ -24,9 +24,9 @@
               <v-card-text>
                 <v-form>
                   <div class="d-flex align-center flex-column">
-                    <v-text-field label="Enter your E-Mail" name="email" prepend-inner-icon="mdi-email" type="email" class="rounded textField" required outlined></v-text-field>
-                    <v-text-field label="Enter your Password" name="password" prepend-inner-icon="mdi-lock" type="password" class="rounded textField" required outlined></v-text-field>
-                    <v-btn class="rounded white--text" outlined x-large color="primary">Login</v-btn>
+                    <v-text-field v-model="username"  label="Enter your E-Mail" name="email" prepend-inner-icon="mdi-email" type="username" class="rounded textField" required outlined></v-text-field>
+                    <v-text-field v-model="password"  label="Enter your Password" name="password" prepend-inner-icon="mdi-lock" type="password" class="rounded textField" required outlined></v-text-field>
+                    <v-btn class="rounded white--text" outlined x-large color="primary" @click="login">Login</v-btn>
                   </div>
                   <v-card-actions>
                     <v-checkbox color="#159b44" label="Remember Me"></v-checkbox>
@@ -43,9 +43,42 @@
 </template>
 
 <script>
+import {mapActions, mapGetters} from "vuex";
+import axios from "axios";
+
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
-  name: "Login"
+  name: "Login",
+  computed: {
+    ...mapGetters({
+      restApi: 'login/getRestApi',
+    })
+  },
+  data: () => ({
+    username: '',
+    password: '',
+  }),
+  methods: {
+    ...mapActions({
+      setAccessToken: 'login/setAccessToken',
+      setRefreshToken: 'login/setRefreshToken',
+    }),
+    login() {
+      const loginUrl = this.restApi + '/api/token/';
+      const loginForm = new FormData();
+      loginForm.append('username', this.username);
+      loginForm.append('password', this.password);
+      axios.post(loginUrl, loginForm)
+          .then(response => {
+            if (response.status === 200) {
+              this.setAccessToken(response.data.access);
+              this.setRefreshToken(response.data.refresh);
+              this.$router.push({path: '/', replace: true});
+            } else console.log(response);
+          })
+          .catch(err => console.log(err));
+    }
+  }
 }
 </script>
 
