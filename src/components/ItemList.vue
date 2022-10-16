@@ -55,7 +55,7 @@
               </v-row>
               <v-divider></v-divider>
               <v-card-title class="pb-0">Ürün Skoru</v-card-title>
-              <v-container class="pt-0"  fluid>
+              <v-container class="pt-0" fluid>
                 <v-checkbox append-icon="mdi-star" label="4 ve üstü" hide-details dense></v-checkbox>
                 <v-checkbox append-icon="mdi-star" label="3 ve üstü" hide-details dense></v-checkbox>
                 <v-checkbox append-icon="mdi-star" label="2 ve üstü" hide-details dense></v-checkbox>
@@ -64,7 +64,7 @@
               <v-divider></v-divider>
               <v-card-title class="pb-0">Marka</v-card-title>
               <v-container class="pt-0" fluid>
-                <v-checkbox  label="HP" hide-details dense></v-checkbox>
+                <v-checkbox label="HP" hide-details dense></v-checkbox>
               </v-container>
             </template>
           </v-card>
@@ -77,9 +77,9 @@
               tile
               justify="space-around"
           >
-            <v-btn class="mx-4" >En Düşük Fiyat</v-btn>
-            <v-btn class="mx-4" >En Yüksek Fiyat</v-btn>
-            <v-btn class="mx-4" >En Yüksek Puan</v-btn>
+            <v-btn class="mx-4">En Düşük Fiyat</v-btn>
+            <v-btn class="mx-4">En Yüksek Fiyat</v-btn>
+            <v-btn class="mx-4">En Yüksek Puan</v-btn>
           </v-card>
 
           <v-divider></v-divider>
@@ -127,7 +127,7 @@
                           </div>
 
                           <v-btn
-                            class="rounded-pill"
+                              class="rounded-pill"
                           >
                             <v-img
                                 max-width="68"
@@ -188,7 +188,6 @@
               </v-hover>
 
 
-
             </div>
             <v-divider class="mt-2"></v-divider>
 
@@ -218,9 +217,9 @@
 export default {
   name: "ItemList",
   data: () => ({
-    range:[0,450000],
-    min:0,
-    max:450000,
+    range: [0, 450000],
+    min: 0,
+    max: 450000,
   })
 }
 </script>
