@@ -10,7 +10,7 @@
       <v-toolbar-title
           style="width: 350px"
       >
-        <a href="/" class="white--text" style="text-decoration: none"><v-icon>mdi-basket</v-icon>&nbsp;KOU</a>
+        <a  @click="$router.push({path: '/'})" class="white--text" style="text-decoration: none"><v-icon>mdi-basket</v-icon>&nbsp;KOU</a>
       </v-toolbar-title>
       <v-text-field
           flat
@@ -51,13 +51,13 @@
           color="primary"
           horizontal
       >
-        <a href="/" class="v-btn">
+        <a @click="$router.push({path: '/'})" class="v-btn">
           <span>Home</span>
         </a>
-        <a href="/shop" class="v-btn">
+        <a  @click="$router.push({path: '/shop'})" class="v-btn">
           <span>Shop</span>
         </a>
-        <a href="/product" class="v-btn">
+        <a  @click="$router.push({path: '/prouduct'})" class="v-btn">
           <span>Product</span>
         </a>
       </v-bottom-navigation>
