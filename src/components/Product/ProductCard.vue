@@ -16,7 +16,7 @@
           <v-img
               max-width="220"
               max-height="170"
-              :src = "products[index].image"
+              :src="products[index] ? products[index].image : 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Hepsiburada_logo_official.svg/2560px-Hepsiburada_logo_official.svg.png'"
           >
           </v-img>
         </v-col>
@@ -47,6 +47,7 @@
                     max-width="68"
                     max-height="11"
                     src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Hepsiburada_logo_official.svg/2560px-Hepsiburada_logo_official.svg.png"
+
                 >
                 </v-img>
               </v-btn>
@@ -111,9 +112,9 @@ export default {
       restApi: 'login/getRestApi',
       accessToken: 'login/getAccessToken'
     }),
-    /*getEqualModelProducts() {
-      return this.products.filter(product => product.computer_data.id )
-    },*/
+    getSameProducts() {
+      return this.products.filter(product => product.computer === this.computers.filter(computer => computer.id !== null))
+    }
   },
   data: () => ({
     products: [],
@@ -136,13 +137,50 @@ export default {
           .then(response => {
             if (response.status === 200) {
               this.products = response.data
-              // fetch computers
-              console.log(this.computers)
+              this.getComputersList()
             }
           })
     },
+    getComputersList() {
+      const fetchComputersURL = this.restApi + '/computer/computerlistcreate/'
+      axios.get(fetchComputersURL, {
+        headers: {
+          'Authorization': 'Bearer ' + this.accessToken,
+          'Content-Type': 'application/json',
+        }
+      })
+          .then(response => {
+            if (response.status === 200) {
+              this.computers = response.data
+              this.computers.map(computer => {
+                this.sameProductMethod(computer)
+              })
+              console.log("Computers Added")
+              console.log(this.computers)
+
+            } else console.log(response)
+          })
+          .catch(err => console.log(err))
+    },
+
+    sameProductMethod(computer) {
+      let sameProducts = this.products.filter(product => product.computer_data.model_number.trim().toLowerCase().replace(/[.,/#!$%^&*;:{}=-_`~()]/g, "") ===
+          computer.model_number.trim().toLowerCase().replace(/[.,/#!$%^&*;:{}=-_`~()]/g, ""))
+      if (sameProducts.length > 1)
+        console.log(sameProducts)
+    },
+
     getProductTitle(products, index) {
-      return products[index].computer_data.brand_data.name + " " + products[index].computer_data.model_number + " " + products[index].computer_data.cpu_data.cpu_type + " " + products[index].computer_data.cpu_data.cpu_generation + " RAM " + products[index].computer_data.memory_data.memory_size + " " + products[index].computer_data.disk_data.disk_type + " " + products[index].computer_data.disk_data.disk_size
+      let productTitle = products[index].computer_data.brand_data.name + " " + products[index].computer_data.model_number + " "
+          + products[index].computer_data.cpu_data.cpu_type + " " + products[index].computer_data.cpu_data.cpu_generation +
+          " RAM " + products[index].computer_data.memory_data.memory_size
+          + " " + products[index].computer_data.disk_data.disk_type + " " + products[index].computer_data.disk_data.disk_size
+      if (products.length !== 0)
+        return productTitle
+      else
+        return ''
+
+
     }
   }
 }
