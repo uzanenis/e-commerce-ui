@@ -2,7 +2,7 @@
       <v-container class="py-6">
         <v-row justify="center" align="center" dense>
           <v-col cols="12" md="6">
-            <v-card class="d-flex justify-center align-center fill-height" style="height: 95vh;" elevation="0" color="primary">
+            <v-card class="d-flex justify-center align-center fill-height logoColumn" style="height: 95vh;" elevation="0" color="primary">
               <a href="/" title="Kou Logo" target="_blank">
                 <v-img
                   src="https://www.freelogovectors.net/wp-content/uploads/2018/03/kocaeli-universitesi-logo.png"
@@ -23,7 +23,11 @@
                 style="height: 95vh;"
             >
               <v-card-text>
-                <v-form>
+                <v-form
+                    ref="form"
+                    v-model="valid"
+                    lazy-validation
+                >
                   <div class="d-flex align-center flex-column">
                     <v-text-field v-model="username" :rules="usernameRules"  label="Enter your E-Mail" name="email" prepend-inner-icon="mdi-email" type="username" class="rounded textField mb-2" required outlined></v-text-field>
                     <v-text-field v-model="password" :rules="passwordRules"  label="Enter your Password" name="password" prepend-inner-icon="mdi-lock" type="password" class="rounded textField" required outlined></v-text-field>
@@ -56,7 +60,7 @@ export default {
     })
   },
   data: () => ({
-    valid: false,
+    valid: true,
     username: '',
     password: '',
     usernameRules: [
@@ -64,7 +68,7 @@ export default {
     ],
     passwordRules: [
       v => !!v || "Password is required",
-      v => v.length <= 5 || "Password cannot be less then 5",
+      v => v.length >= 5 || "Password cannot be less then 5",
     ]
   }),
   methods: {
@@ -73,6 +77,7 @@ export default {
       setRefreshToken: 'login/setRefreshToken',
     }),
     login() {
+      this.$refs.form.validate()
       const loginUrl = this.restApi + '/api/token/';
       const loginForm = new FormData();
       loginForm.append('username', this.username);
@@ -93,6 +98,12 @@ export default {
 
 <style scoped>
 .textField{
-  width: 70%;
+  width: 100%;
+}
+
+@media screen and (max-width: 600px) {
+  .logoColumn{
+    display: none !important;
+  }
 }
 </style>
