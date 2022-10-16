@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 // import HomeView from '../views/HomeView.vue'
-import ItemList from "@/components/ItemList";
+import ItemList from "@/views/ItemList";
 import Login from "@/components/Login";
 import ProductDetail from "@/components/ProductDetail";
-import Layout from "@/components/Layout";
+import HomeView from "@/views/HomeView";
 
 Vue.use(VueRouter)
 
@@ -12,8 +12,8 @@ const routes = [
     // eslint-disable-next-line vue/multi-word-component-names
     {
         path: '/',
-        name: 'layout',
-        component: Layout,
+        name: 'home',
+        component: HomeView,
     },
     {
         path: '/login',

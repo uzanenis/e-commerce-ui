@@ -5,8 +5,8 @@ export default {
     namespaced: true,
     state: {
         restApi: 'http://localhost:8000',
-        accessToken: '',
-        refreshToken: '',
+        accessToken: null,
+        refreshToken: null,
     },
     getters,
     mutations,

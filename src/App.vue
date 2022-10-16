@@ -2,7 +2,9 @@
   <div>
     <v-app>
       <v-main class="pa-0">
+        <navbar-comp v-if="accessToken" />
         <router-view/>
+        <footer-comp v-if="accessToken" />
       </v-main>
     </v-app>
   </div>
@@ -12,10 +14,14 @@
 <script>
 
 import {mapGetters} from "vuex";
-
+import NavbarComp from "@/components/NavbarComp";
+import FooterComp from "@/components/FooterComp";
 export default {
   name: 'App',
-
+  components: {
+    NavbarComp,
+    FooterComp,
+  },
   data: () => ({
     //
   }),

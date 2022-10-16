@@ -85,8 +85,8 @@ export default {
       axios.post(loginUrl, loginForm)
           .then(response => {
             if (response.status === 200) {
-              this.setAccessToken(response.data.access);
-              this.setRefreshToken(response.data.refresh);
+              this.setAccessToken(response.data);
+              this.setRefreshToken(response.data);
               this.$router.push({path: '/', replace: true});
             } else console.log(response);
           })
