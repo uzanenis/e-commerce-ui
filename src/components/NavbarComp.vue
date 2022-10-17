@@ -13,6 +13,8 @@
         <a  @click="$router.push({path: '/'})" class="white--text" style="text-decoration: none"><v-icon>mdi-basket</v-icon>&nbsp;KOU</a>
       </v-toolbar-title>
       <v-text-field
+          v-model="search"
+          v-on:keyup.enter="searchEnter"
           flat
           solo-inverted
           hide-details
@@ -67,7 +69,20 @@
 
 <script>
 export default {
-  name: "NavbarComp"
+  name: "NavbarComp",
+  data: () => ({
+    search:'',
+
+  }),
+  computed: {
+    filteredList(){
+
+      return this.products.filter(product => {
+        product.name.toLowerCase().includes(this.search.toLowerCase()) || product.model_number.toLowerCase().includes(this.search.toLowerCase()) || product.website.toLowerCase().includes(this.search.toLowerCase())
+      })
+
+    }
+  }
 }
 </script>
 
