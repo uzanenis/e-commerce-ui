@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-card
-        v-for="index in 3" :key="index"
+        v-for="index in 5" :key="index"
         color="grey lighten-4"
         width="100%"
         class="pa-5"
@@ -45,8 +45,7 @@
               >
                 <v-img
                     max-width="68"
-                    max-height="11"
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Hepsiburada_logo_official.svg/2560px-Hepsiburada_logo_official.svg.png"
+                    src="/img/n11_logo.png"
 
                 >
                 </v-img>
@@ -67,8 +66,13 @@
                 </div>
               </div>
 
-              <v-btn>
-                Site Logo
+              <v-btn class="rounded-pill">
+                <v-img
+                    max-width="68"
+                    src="/img/teknosa_logo.png"
+
+                >
+                </v-img>
               </v-btn>
 
             </v-col>
@@ -87,8 +91,15 @@
                 </div>
               </div>
 
-              <v-btn>
-                Site Logo
+              <v-btn
+                  class="rounded-pill"
+              >
+                <v-img
+                    max-width="68"
+                    src="/img/trendyol_logo.png"
+
+                >
+                </v-img>
               </v-btn>
 
             </v-col>

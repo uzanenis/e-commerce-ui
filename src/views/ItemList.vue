@@ -22,9 +22,6 @@
               <v-divider></v-divider>
               <v-card-title>Price</v-card-title>
               <v-range-slider
-                  v-model="range"
-                  :max="max"
-                  :min="min"
                   :height="25"
                   dense
               ></v-range-slider>
@@ -62,10 +59,7 @@
                 <v-checkbox append-icon="mdi-star" label="1 ve üstü" hide-details dense></v-checkbox>
               </v-container>
               <v-divider></v-divider>
-              <v-card-title class="pb-0">Marka</v-card-title>
-              <v-container class="pt-0" fluid>
-                <v-checkbox label="HP" hide-details dense></v-checkbox>
-              </v-container>
+              <check-box :brands="brands"></check-box>
             </template>
           </v-card>
         </v-col>
@@ -99,17 +93,38 @@
 </template>
 
 <script>
+import CheckBox from "@/components/Item/CheckBox";
 import ProductCard from "@/components/Product/ProductCard";
+import {mapGetters} from "vuex";
+import axios from "axios";
 export default {
   name: "ItemList",
   components: {
-    ProductCard
+    ProductCard,
+    CheckBox
+  },
+  computed: {
+    ...mapGetters({
+      getRestApi: 'login/getRestApi',
+      getAccessToken: 'login/getAccessToken',
+    })
   },
   data: () => ({
-    range: [0, 450000],
-    min: 0,
-    max: 450000,
-  })
+    brands: []
+  }),
+  mounted() {
+    const checkBoxURL = this.getRestApi + '/default/brandlistcreate/';
+    axios.get(checkBoxURL, {
+      headers: {
+        'Authorization': 'Bearer ' + this.getAccessToken
+      }
+    }).then(response => {
+      if (response.status === 200) {
+        this.brands = response.data;
+      } else console.log(response);
+    })
+        .catch(err => console.log(err))
+  }
 }
 </script>
 
