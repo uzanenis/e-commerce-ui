@@ -13,17 +13,14 @@
         <a  @click="$router.push({path: '/'})" class="white--text" style="text-decoration: none"><v-icon>mdi-basket</v-icon>&nbsp;KOU</a>
       </v-toolbar-title>
       <v-text-field
+          v-model="search"
           flat
           solo-inverted
           hide-details
           prepend-inner-icon="mdi-magnify"
           label="Search"
           class="hidden-sm-and-down pl-10 ml-4"
-          v-model="$store.state.search"
-          @change="orderedProducts"
-
       />
-      <v-btn small class="success ml-3" outlined dark>Ara</v-btn>
       <v-spacer />
       <v-btn icon>
         <v-icon>mdi-account-circle</v-icon>
@@ -75,28 +72,22 @@ import {mapGetters} from "vuex";
 
 export default {
   name: "NavbarComp",
+  data: () => ({
+    search: '',
+
+  }),
   computed: {
     ...mapGetters({
       restApi: 'login/getRestApi',
       accessToken: 'login/getAccessToken'
-    })
-  },
-  methods: {
-    orderedProducts() {
-      const orderedURL = this.restApi + '/product/sameproductslistincludes/' + '?search=' + this.$store.state.search
-      axios.get(orderedURL,{
-        headers: {
-          'Authorization': 'Bearer ' + this.accessToken,
-          'Content-Type': 'application/json',
-        }
+    }),
+    filteredList() {
+
+      return this.products.filter(product => {
+        product.name.toLowerCase().includes(this.search.toLowerCase()) || product.model_number.toLowerCase().includes(this.search.toLowerCase()) || product.website.toLowerCase().includes(this.search.toLowerCase())
       })
-          .then(response => {
-            if (response.status === 200) {
-              console.log(response.data)
-            } else console.log(response)
-          })
-          .catch(err => console.log(err))
-    },
+
+    }
   }
 }
 </script>
