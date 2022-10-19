@@ -50,8 +50,9 @@ export default {
   }),
   computed:{
     filterByRange(){
-      return this.products.filter(product => {
-        product.price > this.min && product.price < this.max
+      return this.productBrands.filter(product => {
+        if(product.price >= parseFloat(this.range[0]) && product.price <= parseFloat(this.range[1]))
+          return product;
       })
     }
   }

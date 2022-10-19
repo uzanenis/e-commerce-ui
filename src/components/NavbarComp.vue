@@ -14,7 +14,6 @@
       </v-toolbar-title>
       <v-text-field
           v-model="search"
-          v-on:keyup.enter="searchEnter"
           flat
           solo-inverted
           hide-details
@@ -47,7 +46,7 @@
         </v-badge>
       </v-btn>
     </v-app-bar>
-    <v-content>
+    <v-main>
       <v-bottom-navigation
           color="primary"
           horizontal
@@ -62,7 +61,7 @@
           <span>Product</span>
         </a>
       </v-bottom-navigation>
-    </v-content>
+    </v-main>
 
   </div>
 </template>
@@ -76,9 +75,10 @@ export default {
   }),
   computed: {
     filteredList(){
-
-      return this.products.filter(product => {
-        product.name.toLowerCase().includes(this.search.toLowerCase()) || product.model_number.toLowerCase().includes(this.search.toLowerCase()) || product.website.toLowerCase().includes(this.search.toLowerCase())
+      console.log(this.search)
+      return this.productBrands.filter(product => {
+        if(product.name.toLowerCase().includes(this.search.toLowerCase()))
+          return product;
       })
 
     }
