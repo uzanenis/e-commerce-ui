@@ -1,8 +1,7 @@
 <template>
   <div class="check-box">
-    <v-card-title class="pb-0">Marka</v-card-title>
     <v-container class="pt-0" fluid>
-      <v-checkbox v-for="brand in brands" :key="brand.id" :label="brand.name" :value="brand.name" v-model="selected" @change="checkBox" hide-details dense></v-checkbox>
+      <v-checkbox v-for="brand in items" :key="brand.id" :label="brand.name" :value="brand.name" v-model="selected" @change="checkBox" hide-details dense></v-checkbox>
     </v-container>
   </div>
 </template>
@@ -11,13 +10,13 @@
 export default {
   name: "CheckBox",
   props: {
-    brands: {
+    items: {
       type: Array,
       required: true
     },
     filtered: {
       type: Function,
-      required: true
+      required: false
     },
   },
   data: () => ({

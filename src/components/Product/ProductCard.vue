@@ -60,12 +60,6 @@ export default {
       else
         return ''
     },
-    selectedBrand(subProduct) {
-      return subProduct.computer_data.brand === this.$store.state.selectedBrands.map(brand => brand.id)
-    },
-    productCard() {
-      document.getElementById("product-card").innerHTML = '';
-    }
   },
 
 }

@@ -24,10 +24,20 @@
               <v-divider></v-divider>
               <rating-filter  :filtered="getFilteredProductsaToPoint" />
               <v-divider></v-divider>
+              <v-card-title>Markalar</v-card-title>
               <check-box
-                  :brands="brands"
+                  :items="brands"
                   :filtered="getFilteredProductsaToBrand"
               ></check-box>
+              <v-divider/>
+              <v-card-title>İşletim Sistemleri</v-card-title>
+              <check-box :items="os"></check-box>
+              <v-divider/>
+              <v-card-title>RAM Bellek</v-card-title>
+              <check-box-memory :items="memories"></check-box-memory>
+              <v-divider/>
+              <v-card-title>Disk Türü</v-card-title>
+              <check-box-disk :items="disks"></check-box-disk>
             </template>
           </v-card>
         </v-col>
@@ -56,7 +66,8 @@ import CheckBox from "@/components/Item/CheckBox";
 import ProductCard from "@/components/Product/ProductCard";
 import RangeSlider from "@/components/Item/RangeSlider";
 import RatingFilter from "@/components/Item/RatingFilter";
-
+import CheckBoxMemory from "@/components/Item/CheckBoxMemory";
+import CheckBoxDisk from "@/components/Item/CheckBoxDisk";
 import {mapGetters} from "vuex";
 import axios from "axios";
 import SortButtons from "@/components/Item/SortButtons";
@@ -68,7 +79,9 @@ export default {
     RatingFilter,
     RangeSlider,
     ProductCard,
-    CheckBox
+    CheckBox,
+    CheckBoxMemory,
+    CheckBoxDisk
   },
   computed: {
     ...mapGetters({
@@ -82,12 +95,18 @@ export default {
   data: () => ({
     products: [],
     brands: [],
+    os: [],
+    memories: [],
+    disks: [],
     productJSONArray: [],
     productsJSON: {},
   }),
   mounted() {
     this.getBrandList();
     this.getProductList()
+    this.getOSList()
+    this.getMemoryList()
+    this.getDiskList()
     // this.getProductList()
   },
   methods: {
@@ -199,6 +218,49 @@ export default {
       })
           .catch(err => console.log(err))
     },
+
+    getOSList() {
+      const osListURL = this.getRestApi + '/default/oslistcreate/';
+      axios.get(osListURL, {
+        headers: {
+          'Authorization': 'Bearer ' + this.getAccessToken
+        }
+      }).then(response => {
+        if (response.status === 200) {
+          this.os = response.data;
+        } else console.log(response);
+      })
+          .catch(err => console.log(err))
+    },
+
+    getMemoryList() {
+      const memoryListURL = this.getRestApi + '/computer/memorylistcreate/';
+      axios.get(memoryListURL, {
+        headers: {
+          'Authorization': 'Bearer ' + this.getAccessToken
+        }
+      }).then(response => {
+        if (response.status === 200) {
+          this.memories = response.data;
+        } else console.log(response);
+      })
+          .catch(err => console.log(err))
+    },
+
+    getDiskList() {
+      const diskListURL = this.getRestApi + '/computer/disklistcreate/';
+      axios.get(diskListURL, {
+        headers: {
+          'Authorization': 'Bearer ' + this.getAccessToken
+        }
+      }).then(response => {
+        if (response.status === 200) {
+          this.disks = response.data;
+        } else console.log(response);
+      })
+          .catch(err => console.log(err))
+    },
+
 
     formatModelNumber(modelNumber) {
       return modelNumber.toLowerCase().replace(/[^\w\s']|_/g, "").replace(/\s+/g, "")
