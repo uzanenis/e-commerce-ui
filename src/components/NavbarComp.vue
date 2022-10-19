@@ -46,7 +46,7 @@
         </v-badge>
       </v-btn>
     </v-app-bar>
-    <v-main>
+    <v-content>
       <v-bottom-navigation
           color="primary"
           horizontal
@@ -61,24 +61,30 @@
           <span>Product</span>
         </a>
       </v-bottom-navigation>
-    </v-main>
+    </v-content>
 
   </div>
 </template>
 
 <script>
+import axios from "axios";
+import {mapGetters} from "vuex";
+
 export default {
   name: "NavbarComp",
   data: () => ({
-    search:'',
+    search: '',
 
   }),
   computed: {
-    filteredList(){
-      console.log(this.search)
-      return this.productBrands.filter(product => {
-        if(product.name.toLowerCase().includes(this.search.toLowerCase()))
-          return product;
+    ...mapGetters({
+      restApi: 'login/getRestApi',
+      accessToken: 'login/getAccessToken'
+    }),
+    filteredList() {
+
+      return this.products.filter(product => {
+        product.name.toLowerCase().includes(this.search.toLowerCase()) || product.model_number.toLowerCase().includes(this.search.toLowerCase()) || product.website.toLowerCase().includes(this.search.toLowerCase())
       })
 
     }

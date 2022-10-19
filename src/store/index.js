@@ -5,6 +5,7 @@ Vue.use(Vuex)
 import login from "@/store/login/login";
 export default new Vuex.Store({
   state: {
+    search: '',
   },
   getters: {
   },
