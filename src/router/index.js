@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 // import HomeView from '../views/HomeView.vue'
-import ItemList from "@/views/ItemList";
+import ItemList from "@/views/ProductView";
 import Login from "@/components/Login";
 import ProductDetail from "@/components/ProductDetail";
 import HomeView from "@/views/HomeView";

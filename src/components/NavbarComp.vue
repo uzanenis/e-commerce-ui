@@ -19,7 +19,11 @@
           prepend-inner-icon="mdi-magnify"
           label="Search"
           class="hidden-sm-and-down pl-10 ml-4"
+          v-model="$store.state.search"
+          @change="orderedProducts"
+
       />
+      <v-btn small class="success ml-3" outlined dark>Ara</v-btn>
       <v-spacer />
       <v-btn icon>
         <v-icon>mdi-account-circle</v-icon>
@@ -66,8 +70,34 @@
 </template>
 
 <script>
+import axios from "axios";
+import {mapGetters} from "vuex";
+
 export default {
-  name: "NavbarComp"
+  name: "NavbarComp",
+  computed: {
+    ...mapGetters({
+      restApi: 'login/getRestApi',
+      accessToken: 'login/getAccessToken'
+    })
+  },
+  methods: {
+    orderedProducts() {
+      const orderedURL = this.restApi + '/product/sameproductslistincludes/' + '?search=' + this.$store.state.search
+      axios.get(orderedURL,{
+        headers: {
+          'Authorization': 'Bearer ' + this.accessToken,
+          'Content-Type': 'application/json',
+        }
+      })
+          .then(response => {
+            if (response.status === 200) {
+              console.log(response.data)
+            } else console.log(response)
+          })
+          .catch(err => console.log(err))
+    },
+  }
 }
 </script>
 

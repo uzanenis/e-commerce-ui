@@ -1,111 +1,39 @@
 <template>
   <div>
     <v-card
-        v-for="index in 5" :key="index"
+        v-for="myproduct in productsFiltered" :key="myproduct.id"
         color="grey lighten-4"
         width="100%"
         class="pa-5"
         outlined
         tile
+        @click="myproduct[0].id"
     >
       <v-row>
         <v-col
-            cols="12"
-            md="2"
+            cols="4"
         >
           <v-img
-              max-width="220"
-              max-height="170"
-              :src="products[index] ? products[index].image : 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Hepsiburada_logo_official.svg/2560px-Hepsiburada_logo_official.svg.png'"
+              max-height="200"
+              max-width="200"
+              :src="myproduct[0].image"
           >
           </v-img>
         </v-col>
 
         <v-col
-            cols="12"
-            md="10"
+            cols="8"
         >
-          <div>
-            {{
-              getProductTitle(products, index)
-            }}
-          </div>
           <v-row>
-            <v-col>
-              <div class="props">
-                <div>
-                  En ucuz
-                </div>
-                <div>
-                  Price
-                </div>
-              </div>
-              <v-btn
-                  class="rounded-pill"
-              >
-                <v-img
-                    max-width="68"
-                    src="/img/n11_logo.png"
-
-                >
-                </v-img>
-              </v-btn>
-            </v-col>
-
-            <v-divider
-                vertical
-            ></v-divider>
-
-            <v-col>
-              <div class="props">
-                <div>
-                  En ucuz
-                </div>
-                <div>
-                  Price
-                </div>
-              </div>
-
-              <v-btn class="rounded-pill">
-                <v-img
-                    max-width="68"
-                    src="/img/teknosa_logo.png"
-
-                >
-                </v-img>
-              </v-btn>
-
-            </v-col>
-
-            <v-divider
-                vertical
-            ></v-divider>
-
-            <v-col>
-              <div class="props">
-                <div>
-                  En ucuz
-                </div>
-                <div>
-                  Price
-                </div>
-              </div>
-
-              <v-btn
-                  class="rounded-pill"
-              >
-                <v-img
-                    max-width="68"
-                    src="/img/trendyol_logo.png"
-
-                >
-                </v-img>
-              </v-btn>
-
+            {{getProductTitle(myproduct[0])}}
+          </v-row>
+          <v-row>
+            <v-col v-for="subProduct in myproduct" :key="subProduct.website" :cols="12 / myproduct.length" >
+              {{ subProduct.website }}
             </v-col>
           </v-row>
-
         </v-col>
+
       </v-row>
 
     </v-card>
@@ -113,87 +41,27 @@
 </template>
 
 <script>
-import {mapGetters} from "vuex";
-import axios from "axios";
-
 export default {
   name: "ProductCard",
-  computed: {
-    ...mapGetters({
-      restApi: 'login/getRestApi',
-      accessToken: 'login/getAccessToken'
-    }),
-    getSameProducts() {
-      return this.products.filter(product => product.computer === this.computers.filter(computer => computer.id !== null))
+  props: {
+    productsFiltered: {
+      type: Array,
+      required: true
     }
   },
-  data: () => ({
-    products: [],
-    computers: [],
-  }),
-  mounted() {
-    this.getProductList()
-  },
   methods: {
-    getProductList() {
-      console.log(this.accessToken)
-      const fetchProductURL = this.restApi + '/product/productlistcreate/';
-      axios.get(fetchProductURL, {
-        headers: {
-          'Authorization': 'Bearer ' + this.accessToken,
-          'Content-Type': 'application/json',
-        }
-
-      })
-          .then(response => {
-            if (response.status === 200) {
-              this.products = response.data
-              this.getComputersList()
-            }
-          })
-    },
-    getComputersList() {
-      const fetchComputersURL = this.restApi + '/computer/computerlistcreate/'
-      axios.get(fetchComputersURL, {
-        headers: {
-          'Authorization': 'Bearer ' + this.accessToken,
-          'Content-Type': 'application/json',
-        }
-      })
-          .then(response => {
-            if (response.status === 200) {
-              this.computers = response.data
-              this.computers.map(computer => {
-                this.sameProductMethod(computer)
-              })
-              console.log("Computers Added")
-              console.log(this.computers)
-
-            } else console.log(response)
-          })
-          .catch(err => console.log(err))
-    },
-
-    sameProductMethod(computer) {
-      let sameProducts = this.products.filter(product => product.computer_data.model_number.trim().toLowerCase().replace(/[.,/#!$%^&*;:{}=-_`~()]/g, "") ===
-          computer.model_number.trim().toLowerCase().replace(/[.,/#!$%^&*;:{}=-_`~()]/g, ""))
-      if (sameProducts.length > 1)
-        console.log(sameProducts)
-    },
-
-    getProductTitle(products, index) {
-      let productTitle = products[index].computer_data.brand_data.name + " " + products[index].computer_data.model_number + " "
-          + products[index].computer_data.cpu_data.cpu_type + " " + products[index].computer_data.cpu_data.cpu_generation +
-          " RAM " + products[index].computer_data.memory_data.memory_size
-          + " " + products[index].computer_data.disk_data.disk_type + " " + products[index].computer_data.disk_data.disk_size
+    getProductTitle(products) {
+      let productTitle = products.computer_data.brand_data.name + " " + products.computer_data.model_number + " "
+          + products.computer_data.cpu_data.cpu_type + " " + products.computer_data.cpu_data.cpu_generation +
+          " RAM " + products.computer_data.memory_data.memory_size
+          + " " + products.computer_data.disk_data.disk_type + " " + products.computer_data.disk_data.disk_size
       if (products.length !== 0)
         return productTitle
       else
         return ''
+    },
 
-
-    }
-  }
+  },
 }
 </script>
 
