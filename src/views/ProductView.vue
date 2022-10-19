@@ -20,17 +20,20 @@
               <v-treeview :items="items"  :open="[1]" :active="[5]" :selected-color="'#fff'" activatable open-on-click dense></v-treeview>
                -->
               <v-divider></v-divider>
-              <range-slider />
+              <range-slider :filtered="getFilteredProductaToPrices"/>
               <v-divider></v-divider>
-              <rating-filter />
+              <rating-filter  :filtered="getFilteredProductsaToPoint" />
               <v-divider></v-divider>
-              <check-box :brands="brands"></check-box>
+              <check-box
+                  :brands="brands"
+                  :filtered="getFilteredProductsaToBrand"
+              ></check-box>
             </template>
           </v-card>
         </v-col>
 
         <v-col class="col-md-9">
-
+            <sort-buttons />
 
           <v-divider></v-divider>
 
@@ -56,10 +59,12 @@ import RatingFilter from "@/components/Item/RatingFilter";
 
 import {mapGetters} from "vuex";
 import axios from "axios";
+import SortButtons from "@/components/Item/SortButtons";
 
 export default {
   name: "ItemList",
   components: {
+    SortButtons,
     RatingFilter,
     RangeSlider,
     ProductCard,
@@ -83,6 +88,7 @@ export default {
   mounted() {
     this.getBrandList();
     this.getProductList()
+    // this.getProductList()
   },
   methods: {
     getProductList() {
@@ -106,6 +112,79 @@ export default {
             }
           })
     },
+
+
+    getFilteredProductsaToBrand() {
+      this.productsJSON = {}
+      this.productJSONArray = []
+      console.log("It works")
+      const filteredURL = this.getRestApi + '/product/productparamswithbrands/?brands=' + this.$store.state.selectedBrands.map(brand => brand.name).join('+');
+      axios.get(filteredURL, {
+        headers: {
+          'Authorization': 'Bearer ' + this.getAccessToken
+        }
+      })
+          .then(response => {
+            if(response.status === 200) {
+              this.filtredProducts = response.data
+              this.filtredProducts.forEach(product => {
+                if (this.filtredProducts.filter(p => this.formatModelNumber(product.computer_data.model_number) === this.formatModelNumber(p.computer_data.model_number)).length > 1) {
+                  this.productsJSON[this.formatModelNumber(product.computer_data.model_number)] = this.filtredProducts.filter(p => this.formatModelNumber(product.computer_data.model_number) === this.formatModelNumber(p.computer_data.model_number))
+                }
+              })
+              this.getCleanedProducts()
+            }
+          })
+    },
+
+    getFilteredProductsaToPoint() {
+      this.productsJSON = {}
+      this.productJSONArray = []
+      console.log("It works")
+      const filteredURL = this.getRestApi + '/product/productparamswithpoints/?points=' + this.$store.state.selectedPoint;
+      axios.get(filteredURL, {
+        headers: {
+          'Authorization': 'Bearer ' + this.getAccessToken
+        }
+      })
+          .then(response => {
+            if(response.status === 200) {
+              this.filtredProducts = response.data
+              this.filtredProducts.forEach(product => {
+                if (this.filtredProducts.filter(p => this.formatModelNumber(product.computer_data.model_number) === this.formatModelNumber(p.computer_data.model_number)).length > 1) {
+                  this.productsJSON[this.formatModelNumber(product.computer_data.model_number)] = this.filtredProducts.filter(p => this.formatModelNumber(product.computer_data.model_number) === this.formatModelNumber(p.computer_data.model_number))
+                }
+              })
+              this.getCleanedProducts()
+            }
+          })
+    },
+
+    getFilteredProductaToPrices() {
+      console.log(this.$store.state.startPrice + "--->" + this.$store.state.endPrice)
+      this.productsJSON = {}
+      this.productJSONArray = []
+      console.log("It works")
+      const filteredURL = this.getRestApi + '/product/productparamswithprices/?price_start=' + this.$store.state.startPrice + '&price_end=' + this.$store.state.endPrice;
+      console.log(filteredURL)
+      axios.get(filteredURL, {
+        headers: {
+          'Authorization': 'Bearer ' + this.getAccessToken
+        }
+      })
+          .then(response => {
+            if(response.status === 200) {
+              this.filtredProducts = response.data
+              this.filtredProducts.forEach(product => {
+                if (this.filtredProducts.filter(p => this.formatModelNumber(product.computer_data.model_number) === this.formatModelNumber(p.computer_data.model_number)).length > 1) {
+                  this.productsJSON[this.formatModelNumber(product.computer_data.model_number)] = this.filtredProducts.filter(p => this.formatModelNumber(product.computer_data.model_number) === this.formatModelNumber(p.computer_data.model_number))
+                }
+              })
+              this.getCleanedProducts()
+            }
+          })
+    },
+
 
     getBrandList() {
       const checkBoxURL = this.getRestApi + '/default/brandlistcreate/';

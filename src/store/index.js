@@ -6,6 +6,10 @@ import login from "@/store/login/login";
 export default new Vuex.Store({
   state: {
     search: '',
+    selectedBrands: [],
+    selectedPoint: '',
+    startPrice: '',
+    endPrice: '',
   },
   getters: {
   },

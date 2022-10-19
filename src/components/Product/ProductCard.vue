@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="product-card">
     <v-card
         v-for="myproduct in productsFiltered" :key="myproduct.id"
         color="grey lighten-4"
@@ -25,11 +25,11 @@
             cols="8"
         >
           <v-row>
-            {{getProductTitle(myproduct[0])}}
+            {{ getProductTitle(myproduct[0]) }}
           </v-row>
           <v-row>
-            <v-col v-for="subProduct in myproduct" :key="subProduct.website" :cols="12 / myproduct.length" >
-              {{ subProduct.website }}
+            <v-col v-for="subProduct in myproduct" :key="subProduct.id" :cols="12 / myproduct.length">
+              {{ subProduct.website }} ---- {{ subProduct.score }}  ---- {{ subProduct.price }}
             </v-col>
           </v-row>
         </v-col>
@@ -60,8 +60,14 @@ export default {
       else
         return ''
     },
-
+    selectedBrand(subProduct) {
+      return subProduct.computer_data.brand === this.$store.state.selectedBrands.map(brand => brand.id)
+    },
+    productCard() {
+      document.getElementById("product-card").innerHTML = '';
+    }
   },
+
 }
 </script>
 
