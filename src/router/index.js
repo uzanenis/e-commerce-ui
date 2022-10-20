@@ -5,6 +5,10 @@ import ItemList from "@/views/ProductView";
 import Login from "@/components/Login";
 import ProductDetail from "@/components/ProductDetail";
 import HomeView from "@/views/HomeView";
+import EcommerceView from "@/views/EcommerceView";
+import EcommerceHomeView from "@/views/EcommerceHomeView";
+import EcommerceProductEditView from "@/views/EcommerceProductEditView";
+import ecommerceProductDetailView from "@/views/EcommerceProductDetailView";
 
 Vue.use(VueRouter)
 
@@ -21,7 +25,7 @@ const routes = [
         component: Login
     },
     {
-        path: '/shop', // ne var diye bakıyorum
+        path: '/shop',
         name: 'itemlist',
         component: ItemList
     },
@@ -29,6 +33,26 @@ const routes = [
         path: '/product/:id',
         name: 'productdetail',
         component: ProductDetail
+    },
+    {
+        path: '/ecommerce',
+        name: 'ecommerce',
+        component: EcommerceHomeView
+    },
+    {
+        path: '/ecommerce/products',
+        name: 'ecommerce',
+        component: EcommerceView
+    },
+    {
+        path: '/ecommerce/product/edit',
+        name: 'ecommerceProductEditView',
+        component: EcommerceProductEditView
+    },
+    {
+        path: '/ecommerce/product/:id',
+        name: 'ecommerceProductDetailView',
+        component: ecommerceProductDetailView
     }
 ]
 
