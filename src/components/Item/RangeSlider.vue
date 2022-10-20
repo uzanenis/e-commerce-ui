@@ -29,7 +29,7 @@
       ></v-text-field>
     </v-col>
     <v-col cols="12">
-      <v-btn small rounded block class="primary mt-0" dark @click="priceSelected">Filter Price</v-btn>
+      <v-btn large rounded block class="primary mt-0" dark @click="priceSelected">Filter Price</v-btn>
     </v-col>
   </v-row>
 

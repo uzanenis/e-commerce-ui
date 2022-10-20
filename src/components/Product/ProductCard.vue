@@ -4,7 +4,7 @@
         v-for="myproduct in productsFiltered" :key="myproduct.id"
         color="grey lighten-4"
         width="100%"
-        class="pa-5"
+        class="card-container pa-5 my-2"
         outlined
         tile
         @click="myproduct[0].id"
@@ -29,7 +29,19 @@
           </v-row>
           <v-row>
             <v-col v-for="subProduct in myproduct" :key="subProduct.id" :cols="12 / myproduct.length">
-              {{ subProduct.website }} ---- {{ subProduct.score }}  ---- {{ subProduct.price }}
+              <div class="card-website">
+                <v-btn
+                  class="rounded-pill primary white--text"
+                >
+                  {{ subProduct.website }}
+                </v-btn>
+              </div>
+              <div class="card-score primary">
+              {{ subProduct.score }}
+            </div>
+              <div class="card-price font-weight-bold">
+                {{ subProduct.price }}
+              </div>
             </v-col>
           </v-row>
         </v-col>
@@ -37,6 +49,7 @@
       </v-row>
 
     </v-card>
+    <v-divider></v-divider>
   </div>
 </template>
 
@@ -66,5 +79,14 @@ export default {
 </script>
 
 <style scoped>
+  .card-website{
 
+  }
+  .card-score{
+
+  }
+
+  .card-price{
+
+  }
 </style>
