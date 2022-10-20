@@ -1,10 +1,10 @@
 <template>
   <div>
     <v-app>
-      <v-main class="pa-0">
-        <navbar-comp />
+      <v-main className="pa-0">
+        <navbar-comp v-if="accessToken"/>
         <router-view/>
-        <footer-comp  />
+        <footer-comp v-if="accessToken"/>
       </v-main>
     </v-app>
   </div>
@@ -16,6 +16,7 @@
 import {mapGetters} from "vuex";
 import NavbarComp from "@/components/NavbarComp";
 import FooterComp from "@/components/FooterComp";
+
 export default {
   name: 'App',
   components: {
@@ -31,7 +32,9 @@ export default {
     })
   },
   mounted() {
-
+    if (!this.accessToken) {
+      this.$router.push({path: '/login', replace: true})
+    }
   }
 };
 </script>
