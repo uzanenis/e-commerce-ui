@@ -2,9 +2,9 @@
   <div>
     <v-app>
       <v-main class="pa-0">
-        <navbar-comp v-if="accessToken" />
+        <navbar-comp />
         <router-view/>
-        <footer-comp v-if="accessToken" />
+        <footer-comp  />
       </v-main>
     </v-app>
   </div>
@@ -31,9 +31,7 @@ export default {
     })
   },
   mounted() {
-    if (!this.accessToken) {
-      this.$router.push({path: '/login', replace: true})
-    }
+
   }
 };
 </script>
