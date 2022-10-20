@@ -57,7 +57,7 @@
         <a  @click="$router.push({path: '/shop'})" class="v-btn">
           <span>Shop</span>
         </a>
-        <a  @click="$router.push({path: '/prouduct'})" class="v-btn">
+        <a  @click="$router.push({path: '/product'})" class="v-btn">
           <span>Product</span>
         </a>
       </v-bottom-navigation>
