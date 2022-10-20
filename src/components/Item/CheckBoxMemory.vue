@@ -1,7 +1,7 @@
 <template>
   <div class="check-box">
     <v-container class="pt-0" fluid>
-      <v-checkbox v-for="memory in getOnlyGB" :key="memory.id" :label="getList(memory.memory_size)" :value="memory.id" v-model="selected" hide-details dense></v-checkbox>
+      <v-checkbox v-for="memory in getOnlyGB" :key="memory.id" :label="getList(memory.memory_size)" :value="memory.memory_size" v-model="selected" @change="checkBox" hide-details dense></v-checkbox>
     </v-container>
   </div>
 </template>
@@ -13,7 +13,15 @@ export default {
     getList(memorySize) {
       let memoryGB = (memorySize.slice(0, memorySize.length - 2))
       return memoryGB + " GB"
-    }
+    },
+    checkBox() {
+      this.selectedArrays = this.items.filter((item) => {
+        return this.selected.includes(item.memory_size)
+      });
+      console.log(this.selectedArrays)
+      this.$store.state.selectedMemories = this.selectedArrays
+      this.filtered()
+    },
   },
   computed: {
     getOnlyGB() {
@@ -33,6 +41,7 @@ export default {
   data: () => ({
     selected: [],
     sizeArray: [],
+    selectedArrays: [],
   }),
 }
 </script>

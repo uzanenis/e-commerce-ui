@@ -31,19 +31,19 @@
               ></check-box>
               <v-divider/>
               <v-card-title>İşletim Sistemleri</v-card-title>
-              <check-box :items="os"></check-box>
+              <check-box-o-s :items="os" :filtered="getFiltredProductaToOS"></check-box-o-s>
               <v-divider/>
               <v-card-title>RAM Bellek</v-card-title>
-              <check-box-memory :items="memories"></check-box-memory>
+              <check-box-memory :items="memories" :filtered="getFiltredProductaToMemory"></check-box-memory>
               <v-divider/>
               <v-card-title>Disk Türü</v-card-title>
-              <check-box-disk :items="disks"></check-box-disk>
+              <check-box-disk :items="disks" :filtered="getFiltredProductsaToDisk"></check-box-disk>
             </template>
           </v-card>
         </v-col>
 
         <v-col class="col-md-9">
-            <sort-buttons />
+            <sort-buttons :cheap="getFiltredCheapest" :expensive="getFiltredExpensive" :score="getFiltredScore" />
 
           <v-divider></v-divider>
 
@@ -68,6 +68,7 @@ import RangeSlider from "@/components/Item/RangeSlider";
 import RatingFilter from "@/components/Item/RatingFilter";
 import CheckBoxMemory from "@/components/Item/CheckBoxMemory";
 import CheckBoxDisk from "@/components/Item/CheckBoxDisk";
+import CheckBoxOS from "@/components/Item/CheckBoxOS";
 import {mapGetters} from "vuex";
 import axios from "axios";
 import SortButtons from "@/components/Item/SortButtons";
@@ -81,7 +82,8 @@ export default {
     ProductCard,
     CheckBox,
     CheckBoxMemory,
-    CheckBoxDisk
+    CheckBoxDisk,
+    CheckBoxOS,
   },
   computed: {
     ...mapGetters({
@@ -180,7 +182,6 @@ export default {
     },
 
     getFilteredProductaToPrices() {
-      console.log(this.$store.state.startPrice + "--->" + this.$store.state.endPrice)
       this.productsJSON = {}
       this.productJSONArray = []
       console.log("It works")
@@ -203,6 +204,148 @@ export default {
             }
           })
     },
+
+    getFiltredProductaToOS() {
+      this.productsJSON = {}
+      this.productJSONArray = []
+      console.log("It works")
+      const filteredURL = this.getRestApi + '/product/productparamswithos/?os=' + this.$store.state.selectedOSs.map(os => os.name).join('+');
+      axios.get(filteredURL, {
+        headers: {
+          'Authorization': 'Bearer ' + this.getAccessToken
+        }
+      })
+          .then(response => {
+            if(response.status === 200) {
+              this.filtredProducts = response.data
+              this.filtredProducts.forEach(product => {
+                if (this.filtredProducts.filter(p => this.formatModelNumber(product.computer_data.model_number) === this.formatModelNumber(p.computer_data.model_number)).length > 1) {
+                  this.productsJSON[this.formatModelNumber(product.computer_data.model_number)] = this.filtredProducts.filter(p => this.formatModelNumber(product.computer_data.model_number) === this.formatModelNumber(p.computer_data.model_number))
+                }
+              })
+              this.getCleanedProducts()
+            }
+          })
+    },
+
+
+    getFiltredProductaToMemory() {
+      this.productsJSON = {}
+      this.productJSONArray = []
+      console.log("It works")
+      const filteredURL = this.getRestApi + '/product/productparamswithmemory/?memory=' + this.$store.state.selectedMemories.map(memory => memory.memory_size).join('+');
+      axios.get(filteredURL, {
+        headers: {
+          'Authorization': 'Bearer ' + this.getAccessToken
+        }
+      })
+          .then(response => {
+            if(response.status === 200) {
+              this.filtredProducts = response.data
+              this.filtredProducts.forEach(product => {
+                if (this.filtredProducts.filter(p => this.formatModelNumber(product.computer_data.model_number) === this.formatModelNumber(p.computer_data.model_number)).length > 1) {
+                  this.productsJSON[this.formatModelNumber(product.computer_data.model_number)] = this.filtredProducts.filter(p => this.formatModelNumber(product.computer_data.model_number) === this.formatModelNumber(p.computer_data.model_number))
+                }
+              })
+              this.getCleanedProducts()
+            }
+          })
+    },
+
+    getFiltredProductsaToDisk() {
+      this.productsJSON = {}
+      this.productJSONArray = []
+      console.log("It works")
+      const filteredURL = this.getRestApi + '/product/productparamswithdisk/?disk_type=' + this.$store.state.selectedDiskType + '&disk_size=' + this.$store.state.selectedDiskSize;
+      axios.get(filteredURL, {
+        headers: {
+          'Authorization': 'Bearer ' + this.getAccessToken
+        }
+      })
+          .then(response => {
+            if(response.status === 200) {
+              this.filtredProducts = response.data
+              this.filtredProducts.forEach(product => {
+                if (this.filtredProducts.filter(p => this.formatModelNumber(product.computer_data.model_number) === this.formatModelNumber(p.computer_data.model_number)).length > 1) {
+                  this.productsJSON[this.formatModelNumber(product.computer_data.model_number)] = this.filtredProducts.filter(p => this.formatModelNumber(product.computer_data.model_number) === this.formatModelNumber(p.computer_data.model_number))
+                }
+              })
+              this.getCleanedProducts()
+            }
+          })
+    },
+
+    getFiltredCheapest() {
+      this.productsJSON = {}
+      this.productJSONArray = []
+      console.log("It works")
+      const filteredURL = this.getRestApi + '/product/productparamscheap/?cheap=true';
+      axios.get(filteredURL, {
+        headers: {
+          'Authorization': 'Bearer ' + this.getAccessToken
+        }
+      })
+          .then(response => {
+            if(response.status === 200) {
+              this.filtredProducts = response.data
+              this.filtredProducts.forEach(product => {
+                if (this.filtredProducts.filter(p => this.formatModelNumber(product.computer_data.model_number) === this.formatModelNumber(p.computer_data.model_number)).length > 1) {
+                  this.productsJSON[this.formatModelNumber(product.computer_data.model_number)] = this.filtredProducts.filter(p => this.formatModelNumber(product.computer_data.model_number) === this.formatModelNumber(p.computer_data.model_number))
+                }
+              })
+              this.getCleanedProducts()
+            }
+          })
+    },
+
+
+    getFiltredExpensive() {
+      this.productsJSON = {}
+      this.productJSONArray = []
+      console.log("It works")
+      const filteredURL = this.getRestApi + '/product/productparamsexpensive/?expensive=true';
+      axios.get(filteredURL, {
+        headers: {
+          'Authorization': 'Bearer ' + this.getAccessToken
+        }
+      })
+          .then(response => {
+            if(response.status === 200) {
+              this.filtredProducts = response.data
+              this.filtredProducts.forEach(product => {
+                if (this.filtredProducts.filter(p => this.formatModelNumber(product.computer_data.model_number) === this.formatModelNumber(p.computer_data.model_number)).length > 1) {
+                  this.productsJSON[this.formatModelNumber(product.computer_data.model_number)] = this.filtredProducts.filter(p => this.formatModelNumber(product.computer_data.model_number) === this.formatModelNumber(p.computer_data.model_number))
+                }
+              })
+              this.getCleanedProducts()
+            }
+          })
+    },
+
+
+    getFiltredScore() {
+      this.productsJSON = {}
+      this.productJSONArray = []
+      console.log("It works")
+      const filteredURL = this.getRestApi + '/product/productparamsscore/?score=true';
+      axios.get(filteredURL, {
+        headers: {
+          'Authorization': 'Bearer ' + this.getAccessToken
+        }
+      })
+          .then(response => {
+            if(response.status === 200) {
+              this.filtredProducts = response.data
+              this.filtredProducts.forEach(product => {
+                if (this.filtredProducts.filter(p => this.formatModelNumber(product.computer_data.model_number) === this.formatModelNumber(p.computer_data.model_number)).length > 1) {
+                  this.productsJSON[this.formatModelNumber(product.computer_data.model_number)] = this.filtredProducts.filter(p => this.formatModelNumber(product.computer_data.model_number) === this.formatModelNumber(p.computer_data.model_number))
+                }
+              })
+              this.getCleanedProducts()
+            }
+          })
+    },
+
 
 
     getBrandList() {

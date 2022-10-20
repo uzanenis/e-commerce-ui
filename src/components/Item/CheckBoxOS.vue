@@ -1,7 +1,7 @@
 <template>
   <div class="check-box">
     <v-container class="pt-0" fluid>
-      <v-checkbox v-for="brand in items" :key="brand.id" :label="brand.name" :value="brand.name" v-model="selected" @change="checkBox" hide-details dense></v-checkbox>
+      <v-checkbox v-for="os in items" :key="os.id" :label="os.name" :value="os.name" v-model="selected" @change="checkBox" hide-details dense></v-checkbox>
     </v-container>
   </div>
 </template>
@@ -28,7 +28,7 @@ export default {
       this.selectedArrays = this.items.filter((item) => {
         return this.selected.includes(item.name)
       });
-      this.$store.state.selectedBrands = this.selectedArrays
+      this.$store.state.selectedOSs = this.selectedArrays
       this.filtered()
     },
   },

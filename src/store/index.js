@@ -7,9 +7,13 @@ export default new Vuex.Store({
   state: {
     search: '',
     selectedBrands: [],
+    selectedOSs: [],
+    selectedMemories: [],
     selectedPoint: '',
     startPrice: '',
     endPrice: '',
+    selectedDiskType: '',
+    selectedDiskSize: '',
   },
   getters: {
   },

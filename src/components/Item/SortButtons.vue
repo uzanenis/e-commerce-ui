@@ -6,9 +6,9 @@
         tile
         justify="space-around"
     >
-      <v-btn class="mx-4" >En Düşük Fiyat</v-btn>
-      <v-btn class="mx-4" >En Yüksek Fiyat</v-btn>
-      <v-btn class="mx-4" >En Yüksek Puan</v-btn>
+      <v-btn class="mx-4" @click="cheap" >En Düşük Fiyat</v-btn>
+      <v-btn class="mx-4" @click="expensive">En Yüksek Fiyat</v-btn>
+      <v-btn class="mx-4" @click="score">En Yüksek Puan</v-btn>
     </v-card>
   </div>
 </template>
@@ -16,12 +16,20 @@
 <script>
 export default {
   name: "SortButtons",
-  data: () => ({
-
-  }),
-  computed:{
-
-  }
+  props: {
+    cheap: {
+      type: Function,
+      required: false
+    },
+    expensive: {
+      type: Function,
+      required: false
+    },
+    score: {
+      type: Function,
+      required: false
+    },
+  },
 }
 </script>
 

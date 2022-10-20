@@ -1,12 +1,13 @@
 <template>
   <div class="check-box">
     <v-container>
-      <v-checkbox v-for="type in diskTypes" :key="type.id" :label="type.name" v-model="selectedDiskType" :value="type.id" hide-details dense></v-checkbox>
+      <v-checkbox v-for="type in diskTypes" :key="type.id" :label="type.name" v-model="$store.state.selectedDiskType" :value="type.name"  hide-details dense></v-checkbox>
     </v-container>
     <v-divider/>
-    <v-card-title>Disk Boyutu</v-card-title>
     <v-container class="pt-0" fluid>
-      <v-checkbox v-for="disk in getOnlyGB" :key="disk.id" :label="getSize(disk.disk_size)" :value="disk.id" v-model="selected" hide-details dense></v-checkbox>
+      <v-card-title>Disk Boyutu</v-card-title>
+      <v-card-subtitle v-if="!($store.state.selectedDiskType)" >Lütfen önce disk türü seçin.</v-card-subtitle>
+      <v-checkbox v-for="disk in getOnlyGB" :key="disk.id" :label="disk.disk_size" :value="disk.disk_size" v-model="$store.state.selectedDiskSize" @change="checkBox"  hide-details dense></v-checkbox>
     </v-container>
   </div>
 </template>
@@ -14,20 +15,12 @@
 <script>
 export default {
   name: "CheckBoxDisk",
-  methods: {
-    getSize(size) {
-      let diskGB = (size.slice(0, size.length - 2))
-      return diskGB + " GB"
-    }
-  },
   computed: {
     getOnlyGB() {
-      return this.items.filter(item => !(item.disk_size.includes('+')) && !(item.disk_type === "eMMC"))
+      return this.items.filter(item => !(item.disk_type === "eMMC") && this.$store.state.selectedDiskType === item.disk_type)
     }
   },
   data: () => ({
-    selected: [],
-    selectedDiskType: '',
     diskTypes: [
       {
         id: 1,
@@ -39,7 +32,7 @@ export default {
       },
       {
         id: 3,
-        name: "HDD + SSD"
+        name: "HDD - SSD"
       }
     ]
   }),
@@ -51,6 +44,11 @@ export default {
     filtered: {
       type: Function,
       required: false
+    },
+  },
+  methods: {
+    checkBox() {
+      this.filtered()
     },
   },
 }
