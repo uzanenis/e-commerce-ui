@@ -35,7 +35,7 @@
           <v-icon>mdi-bell</v-icon>
         </v-badge>
       </v-btn>
-      <v-btn href="/cart" icon>
+      <v-btn icon>
         <v-badge
             content="2"
             value="2"
@@ -57,8 +57,11 @@
         <a  @click="$router.push({path: '/shop'})" class="v-btn">
           <span>Shop</span>
         </a>
-        <a  @click="$router.push({path: '/prouduct'})" class="v-btn">
+        <a  @click="$router.push({path: '/product'})" class="v-btn">
           <span>Product</span>
+        </a>
+        <a  @click="$router.push({path: '/ecommerce'})" class="v-btn">
+          <span>Ecommerce</span>
         </a>
       </v-bottom-navigation>
     </v-content>
