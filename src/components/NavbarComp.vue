@@ -46,7 +46,6 @@
         </v-badge>
       </v-btn>
     </v-app-bar>
-    <v-content>
       <v-bottom-navigation
           color="primary"
           horizontal
@@ -61,8 +60,6 @@
           <span>Product</span>
         </a>
       </v-bottom-navigation>
-    </v-content>
-
   </div>
 </template>
 

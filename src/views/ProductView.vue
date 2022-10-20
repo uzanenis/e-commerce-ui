@@ -43,8 +43,7 @@
         </v-col>
 
         <v-col class="col-md-9">
-            <sort-buttons :cheap="getFiltredCheapest" :expensive="getFiltredExpensive" :score="getFiltredScore" />
-
+          <sort-buttons :cheap="getFiltredCheapest" :expensive="getFiltredExpensive" :score="getFiltredScore" />
           <v-divider></v-divider>
 
           <div class="pa-2">

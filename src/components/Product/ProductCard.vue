@@ -2,45 +2,52 @@
   <div id="product-card">
     <v-card
         v-for="myproduct in productsFiltered" :key="myproduct.id"
-        color="grey lighten-4"
         width="100%"
-        class="card-container pa-5 my-2"
+        color="grey-lighten-4"
+        class="card-container rounded pa-7 my-2"
+        elevation="1"
         outlined
         tile
-        @click="myproduct[0].id"
     >
       <v-row>
         <v-col
-            cols="4"
+            cols="3"
         >
           <v-img
+              class="rounded card-image"
               max-height="200"
               max-width="200"
               :src="myproduct[0].image"
+              @click="$router.push({path: `/product/${myproduct[0].id}`})"
           >
           </v-img>
         </v-col>
+
+        <v-divider vertical class="mr-5"></v-divider>
 
         <v-col
             cols="8"
         >
           <v-row>
-            {{ getProductTitle(myproduct[0]) }}
+            <div class="card-title font-weight-bold mt-3" @click="$router.push({path: `/product/${myproduct[0].id}`})">
+              {{ getProductTitle(myproduct[0]) }}
+            </div>
           </v-row>
           <v-row>
-            <v-col v-for="subProduct in myproduct" :key="subProduct.id" :cols="12 / myproduct.length">
-              <div class="card-website">
+            <v-col class="mt-3" v-for="subProduct in myproduct" :key="subProduct.id" :cols="12 / myproduct.length">
                 <v-btn
-                  class="rounded-pill primary white--text"
+                    max-width="85"
+                    class="rounded-pill pa-4"
+                    :href="subProduct.url"
+                    target="_blank"
                 >
-                  {{ subProduct.website }}
+                  <v-img
+                      max-width="70"
+                      :src="getWebsite(subProduct.website)"
+                  ></v-img>
                 </v-btn>
-              </div>
-              <div class="card-score primary">
-              {{ subProduct.score }}
-            </div>
-              <div class="card-price font-weight-bold">
-                {{ subProduct.price }}
+              <div class="card-price mt-4 ml-3 font-weight-bold mt-2">
+                {{ subProduct.price }} TL
               </div>
             </v-col>
           </v-row>
@@ -73,12 +80,27 @@ export default {
       else
         return ''
     },
+    getWebsite(subProduct){
+      if(subProduct === 'Trendyol')
+        return '/img/trendyol_logo.png'
+      else if(subProduct === 'n11')
+        return '/img/n11_logo.png'
+      else if(subProduct === 'Vatan Bilgisayar')
+        return '/img/vatan_logo.png.jpeg'
+      else if(subProduct === 'Teknosa')
+        return '/img/teknosa_logo.png'
+      else if(subProduct === 'Kou Ecommerce')
+        return ''
+    }
   },
 
 }
 </script>
 
 <style scoped>
+  .card-container{
+  }
+
   .card-website{
 
   }
@@ -88,5 +110,8 @@ export default {
 
   .card-price{
 
+  }
+
+  .card-image{
   }
 </style>

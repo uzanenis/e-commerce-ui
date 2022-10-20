@@ -6,9 +6,12 @@
         tile
         justify="space-around"
     >
-      <v-btn class="mx-4" @click="cheap" >En Düşük Fiyat</v-btn>
-      <v-btn class="mx-4" @click="expensive">En Yüksek Fiyat</v-btn>
-      <v-btn class="mx-4" @click="score">En Yüksek Puan</v-btn>
+      <div class="mx-auto">
+        <v-btn class="mx-4" @click="cheap" >En Düşük Fiyat</v-btn>
+        <v-btn class="mx-4" @click="expensive">En Yüksek Fiyat</v-btn>
+        <v-btn class="mx-4" @click="score">En Yüksek Puan</v-btn>
+      </div>
+
     </v-card>
   </div>
 </template>

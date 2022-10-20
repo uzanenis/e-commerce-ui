@@ -29,7 +29,7 @@
                     lazy-validation
                 >
                   <div class="d-flex align-center flex-column">
-                    <v-text-field v-model="username" :rules="usernameRules"  label="Enter your E-Mail" name="email" prepend-inner-icon="mdi-email" type="username" class="rounded textField mb-2" required outlined></v-text-field>
+                    <v-text-field v-model="username" :rules="usernameRules"  label="Enter your Username" name="email" prepend-inner-icon="mdi-email" type="username" class="rounded textField mb-2" required outlined></v-text-field>
                     <v-text-field v-model="password" :rules="passwordRules"  label="Enter your Password" name="password" prepend-inner-icon="mdi-lock" type="password" class="rounded textField" required outlined></v-text-field>
                     <v-btn class="rounded white--text" outlined large color="primary" @click="login">Login</v-btn>
                   </div>

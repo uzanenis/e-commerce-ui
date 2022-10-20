@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-app>
-      <v-main className="pa-0">
+      <v-main>
         <navbar-comp v-if="accessToken"/>
         <router-view/>
         <footer-comp v-if="accessToken"/>
