@@ -56,9 +56,6 @@
         <a  @click="$router.push({path: '/shop'})" class="v-btn">
           <span>Shop</span>
         </a>
-        <a  @click="$router.push({path: '/product'})" class="v-btn">
-          <span>Product</span>
-        </a>
         <a  @click="$router.push({path: '/ecommerce'})" class="v-btn">
           <span>Ecommerce</span>
         </a>
