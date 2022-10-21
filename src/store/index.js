@@ -9,11 +9,13 @@ export default new Vuex.Store({
     selectedBrands: [],
     selectedOSs: [],
     selectedMemories: [],
+    selectedCPUs: [],
     selectedPoint: '',
     startPrice: '',
     endPrice: '',
     selectedDiskType: '',
     selectedDiskSize: '',
+    selectedCPUType: '',
   },
   getters: {
   },

@@ -36,8 +36,12 @@
               <v-card-title>RAM Bellek</v-card-title>
               <check-box-memory :items="memories" :filtered="getFiltredProductaToMemory"></check-box-memory>
               <v-divider/>
+              <v-card-title>İşlemci Markası</v-card-title>
+              <check-box-c-p-u :filtered="getFiltredaToCPU"></check-box-c-p-u>
+              <v-divider/>
               <v-card-title>Disk Türü</v-card-title>
               <check-box-disk :items="disks" :filtered="getFiltredProductsaToDisk"></check-box-disk>
+
             </template>
           </v-card>
         </v-col>
@@ -68,6 +72,7 @@ import RatingFilter from "@/components/Item/RatingFilter";
 import CheckBoxMemory from "@/components/Item/CheckBoxMemory";
 import CheckBoxDisk from "@/components/Item/CheckBoxDisk";
 import CheckBoxOS from "@/components/Item/CheckBoxOS";
+import CheckBoxCPU from "@/components/Item/CheckBoxCPU";
 import {mapGetters} from "vuex";
 import axios from "axios";
 import SortButtons from "@/components/Item/SortButtons";
@@ -83,6 +88,7 @@ export default {
     CheckBoxMemory,
     CheckBoxDisk,
     CheckBoxOS,
+    CheckBoxCPU,
   },
   computed: {
     ...mapGetters({
@@ -256,6 +262,30 @@ export default {
       this.productJSONArray = []
       console.log("It works")
       const filteredURL = this.getRestApi + '/product/productparamswithdisk/?disk_type=' + this.$store.state.selectedDiskType + '&disk_size=' + this.$store.state.selectedDiskSize;
+      axios.get(filteredURL, {
+        headers: {
+          'Authorization': 'Bearer ' + this.getAccessToken
+        }
+      })
+          .then(response => {
+            if(response.status === 200) {
+              this.filtredProducts = response.data
+              this.filtredProducts.forEach(product => {
+                if (this.filtredProducts.filter(p => this.formatModelNumber(product.computer_data.model_number) === this.formatModelNumber(p.computer_data.model_number)).length > 1) {
+                  this.productsJSON[this.formatModelNumber(product.computer_data.model_number)] = this.filtredProducts.filter(p => this.formatModelNumber(product.computer_data.model_number) === this.formatModelNumber(p.computer_data.model_number))
+                }
+              })
+              this.getCleanedProducts()
+            }
+          })
+    },
+
+    getFiltredaToCPU() {
+      this.productsJSON = {}
+      this.productJSONArray = []
+      console.log("It works")
+      console.log(this.$store.state.selectedCPUs.map(cpu => cpu.name).join('+'))
+      const filteredURL = this.getRestApi + '/product/productparamswithcpu/?cpu=' + this.$store.state.selectedCPUs.map(cpu => cpu.name).join('+');
       axios.get(filteredURL, {
         headers: {
           'Authorization': 'Bearer ' + this.getAccessToken
