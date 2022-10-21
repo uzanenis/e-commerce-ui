@@ -2,13 +2,14 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 // import HomeView from '../views/HomeView.vue'
 import ItemList from "@/views/ProductView";
-import Login from "@/components/Login";
+import Login from "@/views/Login";
 import ProductDetail from "@/components/ProductDetail";
 import HomeView from "@/views/HomeView";
 import EcommerceView from "@/views/EcommerceView";
 import EcommerceHomeView from "@/views/EcommerceHomeView";
 import EcommerceProductEditView from "@/views/EcommerceProductEditView";
 import ecommerceProductDetailView from "@/views/EcommerceProductDetailView";
+import AdminLogin from "@/views/AdminLogin";
 
 Vue.use(VueRouter)
 
@@ -38,6 +39,11 @@ const routes = [
         path: '/ecommerce',
         name: 'ecommerce',
         component: EcommerceHomeView
+    },
+    {
+        path: '/ecommerce/login',
+        name: 'ecommerce',
+        component: AdminLogin
     },
     {
         path: '/ecommerce/products',
