@@ -56,7 +56,8 @@ export default {
   name: "Login",
   computed: {
     ...mapGetters({
-      restApi: 'login/getRestApi',
+      getRestApi: 'login/getRestApi',
+      getAccessToken: 'login/getAccessToken',
     })
   },
   data: () => ({
@@ -75,10 +76,11 @@ export default {
     ...mapActions({
       setAccessToken: 'login/setAccessToken',
       setRefreshToken: 'login/setRefreshToken',
+      setProducts: 'product/setProducts',
     }),
     login() {
       this.$refs.form.validate()
-      const loginUrl = this.restApi + '/api/token/';
+      const loginUrl = this.getRestApi + '/api/token/';
       const loginForm = new FormData();
       loginForm.append('username', this.username);
       loginForm.append('password', this.password);
@@ -87,11 +89,28 @@ export default {
             if (response.status === 200) {
               this.setAccessToken(response.data);
               this.setRefreshToken(response.data);
+              this.getProductList();
               this.$router.push({path: '/', replace: true});
             } else console.log(response);
           })
           .catch(err => console.log(err));
-    }
+    },
+    getProductList() {
+      const fetchProductURL = this.getRestApi + '/product/productlistcreate/';
+      axios.get(fetchProductURL, {
+        headers: {
+          'Authorization': 'Bearer ' + this.getAccessToken,
+          'Content-Type': 'application/json',
+        }
+      })
+          .then(response => {
+            if (response.status === 200) {
+              this.products = response.data
+              this.setProducts({products: response.data})
+
+            }
+          })
+    },
   }
 }
 </script>

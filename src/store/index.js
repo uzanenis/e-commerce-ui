@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 import login from "@/store/login/login";
+import product from "@/store/product/product";
 export default new Vuex.Store({
   state: {
     search: '',
@@ -25,5 +26,6 @@ export default new Vuex.Store({
   },
   modules: {
     login,
+    product,
   }
 })

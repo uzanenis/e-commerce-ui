@@ -8,7 +8,6 @@ import HomeView from "@/views/HomeView";
 import EcommerceView from "@/views/EcommerceView";
 import EcommerceHomeView from "@/views/EcommerceHomeView";
 import EcommerceProductEditView from "@/views/EcommerceProductEditView";
-import ecommerceProductDetailView from "@/views/EcommerceProductDetailView";
 import AdminLogin from "@/views/AdminLogin";
 
 Vue.use(VueRouter)
@@ -58,7 +57,7 @@ const routes = [
     {
         path: '/ecommerce/product/:id',
         name: 'ecommerceProductDetailView',
-        component: ecommerceProductDetailView
+        component: ProductDetail
     }
 ]
 

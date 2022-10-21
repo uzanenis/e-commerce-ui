@@ -11,13 +11,13 @@
         </v-btn>
       </div>
       <v-carousel>
-        <template v-for="(item, index) in 7">
+        <template v-for="(item, index) in 50">
           <v-carousel-item v-if="(index + 1) % columns === 1 || columns === 1"
                            :key="index"
           >
             <v-row class="flex-nowrap" style="height:100%">
               <template v-for="(n,i) in columns">
-                <template v-if="(+index + i) < 7">
+                <template v-if="(+index + i) < 50">
                   <v-col :key="i">
                       <v-row class="fill-height mr-2"
                              align="center"
@@ -27,7 +27,8 @@
                             contain
                             width="250"
                             height="100%"
-                            src="https://tasarimcantasi.com/uploads/posts/2016-10/1475518751_kocaeli_universitesi-1-copy.png"
+                            :src="products[+index + i].image"
+                            @click="$router.push({path: `/product/${products[+index + i].id}`})"
                         >
 
                         </v-img>
@@ -43,10 +44,15 @@
 </template>
 
 <script>
+import {mapGetters} from "vuex";
+
 export default {
   name: "CarouselAll",
 
   computed: {
+    ...mapGetters({
+      products: "product/getProducts",
+    }),
     columns() {
       if (this.$vuetify.breakpoint.xl) {
         return 4;

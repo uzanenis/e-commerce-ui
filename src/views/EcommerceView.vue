@@ -2,13 +2,14 @@
   <div>
     <v-container class="fill-height">
       <v-row>
-        <v-col
+        <v-col v-for="product in fetchProducts" :key="product.id"
             cols="12"
             md="3"
             sm="6"
         >
           <v-hover
             v-slot="{ hover }">
+
             <v-card
                 :elevation="hover ? 16: 2"
                 class="productListCard"
@@ -18,16 +19,16 @@
                   contain
                   height="179px"
                   width="179px"
-                  src="/img/trendyol_logo.png"
+                  :src="product.image"
               >
               </v-img>
               <div class="productCardContainer">
                 <div>
-                  <div class="productCardModel">A715-42G-R016</div>
-                  <h3 class="productCardTitle">Acer Aspire 7 5.Nesil Ryzen 5 5500U-8Gb-512Gb Ssd-15.6inc-Rtx3050 4Gb-Freedos</h3>
+                  <div class="productCardModel">{{ product.computer_data.model_number }}</div>
+                  <h3 class="productCardTitle">{{ getProductTitle(product) }}</h3>
                 </div>
                 <div class="productCardCost mt-7">
-                  <div class="productCardPrice">15.999 TL</div>
+                  <div class="productCardPrice">{{ product.price }} TL</div>
                   <div class="productCardCargo">Kargo Bedava</div>
                 </div>
               </div>
@@ -35,122 +36,19 @@
           </v-hover>
 
         </v-col>
-        <v-col
-            cols="12"
-            md="3"
-            sm="6"
-        >
-          <v-hover
-              v-slot="{ hover }">
-            <v-card
-                :elevation="hover ? 16: 2"
-                class="productListCard"
-                @click="$router.push({path: `/ecommerce/product/${product.id}`})"
-            >
-              <v-img
-                  contain
-                  height="179px"
-                  width="179px"
-                  src="/img/trendyol_logo.png"
-              >
-              </v-img>
-              <div class="productCardContainer">
-                <div>
-                  <div class="productCardModel">A715-42G-R016</div>
-                  <h3 class="productCardTitle">Acer Aspire 7 5.Nesil Ryzen 5 5500U-8Gb-512Gb Ssd-15.6inc-Rtx3050 4Gb-Freedos</h3>
-                </div>
-                <div class="productCardCost mt-7">
-                  <div class="productCardPrice">15.999 TL</div>
-                  <div class="productCardCargo">Kargo Bedava</div>
-                </div>
-              </div>
-            </v-card>
-          </v-hover>
 
-        </v-col>
-        <v-col
-            cols="12"
-            md="3"
-            sm="6"
-        >
-          <v-hover
-              v-slot="{ hover }">
-            <v-card
-                :elevation="hover ? 16: 2"
-                class="productListCard"
-                @click="$router.push({path: `/ecommerce/product/${product.id}`})"
-            >
-              <v-img
-                  contain
-                  height="179px"
-                  width="179px"
-                  src="/img/trendyol_logo.png"
-              >
-              </v-img>
-              <div class="productCardContainer">
-                <div>
-                  <div class="productCardModel">A715-42G-R016</div>
-                  <h3 class="productCardTitle">Acer Aspire 7 5.Nesil Ryzen 5 5500U-8Gb-512Gb Ssd-15.6inc-Rtx3050 4Gb-Freedos</h3>
-                </div>
-                <div class="productCardCost mt-7">
-                  <div class="productCardPrice">15.999 TL</div>
-                  <div class="productCardCargo">Kargo Bedava</div>
-                </div>
-              </div>
-            </v-card>
-          </v-hover>
-
-        </v-col>
-        <v-col
-            cols="12"
-            md="3"
-            sm="6"
-        >
-          <v-hover
-              v-slot="{ hover }">
-            <v-card
-                :elevation="hover ? 16: 2"
-                class="productListCard"
-                @click="$router.push({path: `/ecommerce/product/${product.id}`})"
-            >
-              <v-img
-                  contain
-                  height="179px"
-                  width="179px"
-                  src="/img/trendyol_logo.png"
-              >
-              </v-img>
-              <div class="productCardContainer">
-                <div>
-                  <div class="productCardModel">A715-42G-R016</div>
-                  <h3 class="productCardTitle">Acer Aspire 7 5.Nesil Ryzen 5 5500U-8Gb-512Gb Ssd-15.6inc-Rtx3050 4Gb-Freedos</h3>
-                </div>
-                <div class="productCardCost mt-7">
-                  <div class="productCardPrice">15.999 TL</div>
-                  <div class="productCardCargo">Kargo Bedava</div>
-                </div>
-              </div>
-            </v-card>
-          </v-hover>
-
-        </v-col>
       </v-row>
     </v-container>
   </div>
 </template>
 
 <script>
+import {mapGetters} from "vuex";
+
 export default {
   name: "EcommerceView",
   data: () => ({
-    newProd: [
-      {
-        id:1
-      },
-      {
-        id:2
-      }
-  ]
+
   }),
   computed:{
     productId(){
@@ -158,7 +56,22 @@ export default {
     },
     product(){
       return this.products.find(product => product.id === this.productId)
-    }
+    },
+    ...mapGetters({
+      fetchProducts: 'product/getProducts',
+    })
+  },
+  methods: {
+    getProductTitle(products) {
+      let productTitle = products.computer_data.brand_data.name + " " + products.computer_data.model_number + " "
+          + products.computer_data.cpu_data.cpu_type + " " + products.computer_data.cpu_data.cpu_generation +
+          " RAM " + products.computer_data.memory_data.memory_size
+          + " " + products.computer_data.disk_data.disk_type + " " + products.computer_data.disk_data.disk_size
+      if (products.length !== 0)
+        return productTitle
+      else
+        return ''
+    },
   }
 }
 </script>

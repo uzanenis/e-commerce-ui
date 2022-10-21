@@ -94,6 +94,7 @@ export default {
   },
   computed: {
     ...mapGetters({
+      fetchProducts: 'product/getProducts',
       getRestApi: 'login/getRestApi',
       getAccessToken: 'login/getAccessToken',
     }),
@@ -102,7 +103,6 @@ export default {
     },
   },
   data: () => ({
-    products: [],
     brands: [],
     os: [],
     memories: [],
@@ -120,25 +120,12 @@ export default {
   },
   methods: {
     getProductList() {
-      const fetchProductURL = this.getRestApi + '/product/productlistcreate/';
-      axios.get(fetchProductURL, {
-        headers: {
-          'Authorization': 'Bearer ' + this.getAccessToken,
-          'Content-Type': 'application/json',
+      this.fetchProducts.forEach(product => {
+        if (this.fetchProducts.filter(p => this.formatModelNumber(product.computer_data.model_number) === this.formatModelNumber(p.computer_data.model_number)).length > 1) {
+          this.productsJSON[this.formatModelNumber(product.computer_data.model_number)] = this.fetchProducts.filter(p => this.formatModelNumber(product.computer_data.model_number) === this.formatModelNumber(p.computer_data.model_number))
         }
       })
-          .then(response => {
-            if (response.status === 200) {
-              this.products = response.data
-
-              this.products.forEach(product => {
-                if (this.products.filter(p => this.formatModelNumber(product.computer_data.model_number) === this.formatModelNumber(p.computer_data.model_number)).length > 1) {
-                  this.productsJSON[this.formatModelNumber(product.computer_data.model_number)] = this.products.filter(p => this.formatModelNumber(product.computer_data.model_number) === this.formatModelNumber(p.computer_data.model_number))
-                }
-              })
-              this.getCleanedProducts()
-            }
-          })
+      this.getCleanedProducts()
     },
 
 

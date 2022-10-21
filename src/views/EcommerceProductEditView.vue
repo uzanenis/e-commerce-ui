@@ -2,11 +2,10 @@
   <div style="height: 100vh">
     <v-data-table
         :headers="headers"
-        :items="products"
+        :items="fetchProducts"
         item-key="name"
         class="elevation-1"
         :search="search"
-        :custom-filter="filterSearchBar"
     >
       <template v-slot:top>
         <v-toolbar
@@ -33,9 +32,10 @@
         <product-update
             :product="item">
         </product-update>
-        <!--        <product-delete
-                    :product="item">
-                ></product-delete>-->
+        <product-delete
+            :product="item">
+          >
+        </product-delete>
       </template>
     </v-data-table>
   </div>
@@ -43,7 +43,7 @@
 
 <script>
 import CreateProduct from "@/components/Mysite/CreateProduct";
-//import ProductDelete from "@/components/Mysite/ProductDelete";
+import ProductDelete from "@/components/Mysite/ProductDelete";
 import ProductUpdate from "@/components/Mysite/ProductUpdate";
 import axios from "axios";
 import {mapGetters} from "vuex";
@@ -53,6 +53,7 @@ export default {
   components: {
     CreateProduct,
     ProductUpdate,
+    ProductDelete,
   },
   data: () => ({
     search: '',
@@ -63,6 +64,7 @@ export default {
     ...mapGetters({
       getRestApi: 'login/getRestApi',
       getAccessToken: 'login/getAccessToken',
+      fetchProducts: 'product/getProducts',
     }),
     headers() {
       return [
