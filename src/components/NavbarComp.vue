@@ -10,7 +10,18 @@
       <v-toolbar-title
           style="width: 350px"
       >
-        <a  @click="$router.push({path: '/'})" class="white--text" style="text-decoration: none"><v-icon>mdi-basket</v-icon>&nbsp;KOU</a>
+        <a @click="$router.push({path: '/'})" class="white--text font-weight-bold d-flex align-center" style="text-decoration: none">
+          <v-img
+              max-width="44"
+              max-height="44"
+              src="/img/kou_logo.png"
+              class="mr-2"
+          >
+          </v-img>
+          <div>
+            KOUCOMPARE
+          </div>
+        </a>
       </v-toolbar-title>
       <v-text-field
           v-model="search"
@@ -20,8 +31,15 @@
           prepend-inner-icon="mdi-magnify"
           label="Search"
           class="hidden-sm-and-down pl-10 ml-4"
-      />
-      <v-spacer />
+      >
+      </v-text-field>
+      <v-btn
+        outlined
+        class="ml-3"
+      >
+        ARA
+      </v-btn>
+      <v-spacer/>
       <v-btn icon>
         <v-icon>mdi-account-circle</v-icon>
       </v-btn>
@@ -46,20 +64,22 @@
         </v-badge>
       </v-btn>
     </v-app-bar>
-      <v-bottom-navigation
-          color="primary"
-          horizontal
-      >
-        <a @click="$router.push({path: '/'})" class="v-btn">
-          <span>Home</span>
-        </a>
-        <a  @click="$router.push({path: '/shop'})" class="v-btn">
-          <span>Shop</span>
-        </a>
-        <a  @click="$router.push({path: '/ecommerce'})" class="v-btn">
-          <span>Ecommerce</span>
-        </a>
-      </v-bottom-navigation>
+    <v-bottom-navigation
+        color="primary"
+        horizontal
+    >
+      <a @click="$router.push({path: '/'})" class="v-btn">
+        <span class="navbar-text">Home</span>
+      </a>
+      <v-divider vertical></v-divider>
+      <a @click="$router.push({path: '/shop'})" class="v-btn">
+        <span class="navbar-text">Shop</span>
+      </a>
+      <v-divider vertical></v-divider>
+      <a @click="$router.push({path: '/ecommerce'})" class="v-btn">
+        <span class="navbar-text pa-3">Ecommerce</span>
+      </a>
+    </v-bottom-navigation>
   </div>
 </template>
 
@@ -89,5 +109,9 @@ export default {
 </script>
 
 <style scoped>
-
+  .navbar-text{
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #159b44;
+  }
 </style>

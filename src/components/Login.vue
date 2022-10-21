@@ -5,7 +5,7 @@
             <v-card class="d-flex justify-center align-center fill-height logoColumn" style="height: 95vh;" elevation="0" color="primary">
               <a href="/" title="Kou Logo" target="_blank">
                 <v-img
-                  src="https://www.freelogovectors.net/wp-content/uploads/2018/03/kocaeli-universitesi-logo.png"
+                  src="/img/kou_logo.png"
                   alt="koulogo"
                   max-height="300"
                   max-width="300"

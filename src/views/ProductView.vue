@@ -3,9 +3,9 @@
     <v-container>
       <v-row no-gutters>
         <v-col
-            class="col-md-3"
             cols="12"
-            sm="4"
+            md="3"
+            sm="6"
         >
           <v-card
               class="pa-2"
@@ -42,7 +42,9 @@
           </v-card>
         </v-col>
 
-        <v-col class="col-md-9">
+        <v-col
+          md="9"
+        >
           <sort-buttons :cheap="getFiltredCheapest" :expensive="getFiltredExpensive" :score="getFiltredScore" />
           <v-divider></v-divider>
 
