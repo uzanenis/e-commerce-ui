@@ -10,7 +10,8 @@
       <v-toolbar-title
           style="width: 350px"
       >
-        <a @click="$router.push({path: '/'})" class="white--text font-weight-bold d-flex align-center" style="text-decoration: none">
+        <a @click="$router.push({path: '/'})" class="white--text font-weight-bold d-flex align-center"
+           style="text-decoration: none">
           <v-img
               max-width="44"
               max-height="44"
@@ -34,8 +35,9 @@
       >
       </v-text-field>
       <v-btn
-        outlined
-        class="ml-3"
+          outlined
+          class="ml-3"
+          @click="filteredList"
       >
         ARA
       </v-btn>
@@ -95,23 +97,30 @@ export default {
   computed: {
     ...mapGetters({
       restApi: 'login/getRestApi',
-      accessToken: 'login/getAccessToken'
+      accessToken: 'login/getAccessToken',
+      fetchProducts: 'product/getProducts',
     }),
+  },
+
+  methods: {
     filteredList() {
-
-      return this.products.filter(product => {
-        product.name.toLowerCase().includes(this.search.toLowerCase()) || product.model_number.toLowerCase().includes(this.search.toLowerCase()) || product.website.toLowerCase().includes(this.search.toLowerCase())
+      this.$store.state.searchValue = this.search
+      this.$store.state.searchedProducts = this.fetchProducts.filter(product => {
+        return product.computer_data.brand_data.name.toLowerCase().includes(this.formatModelNumber(this.search)) || product.computer_data.model_number.toLowerCase().includes(this.formatModelNumber(this.search)) || product.website.toLowerCase().includes(this.formatModelNumber(this.search))
       })
-
-    }
+      this.$router.push({path: '/search'})
+    },
+    formatModelNumber(text) {
+      return text.toLowerCase().replace(/[^\w\s']|_/g, "").replace(/\s+/g, "")
+    },
   }
 }
 </script>
 
 <style scoped>
-  .navbar-text{
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #159b44;
-  }
+.navbar-text {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #159b44;
+}
 </style>

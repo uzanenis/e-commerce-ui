@@ -9,6 +9,7 @@ import EcommerceView from "@/views/EcommerceView";
 import EcommerceHomeView from "@/views/EcommerceHomeView";
 import EcommerceProductEditView from "@/views/EcommerceProductEditView";
 import AdminLogin from "@/views/AdminLogin";
+import SearchedProducts from "@/views/SearchedProducts";
 
 Vue.use(VueRouter)
 
@@ -41,12 +42,12 @@ const routes = [
     },
     {
         path: '/ecommerce/login',
-        name: 'ecommerce',
+        name: 'ecommerce-admin',
         component: AdminLogin
     },
     {
         path: '/ecommerce/products',
-        name: 'ecommerce',
+        name: 'ecommerce-product',
         component: EcommerceView
     },
     {
@@ -58,6 +59,11 @@ const routes = [
         path: '/ecommerce/product/:id',
         name: 'ecommerceProductDetailView',
         component: ProductDetail
+    },
+    {
+        path: '/search',
+        name: 'search',
+        component: SearchedProducts
     }
 ]
 

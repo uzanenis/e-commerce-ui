@@ -17,6 +17,8 @@ export default new Vuex.Store({
     selectedDiskType: '',
     selectedDiskSize: '',
     selectedCPUType: '',
+    searchedProducts: [],
+    searchValue: '',
   },
   getters: {
   },

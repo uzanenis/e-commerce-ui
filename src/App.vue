@@ -16,6 +16,7 @@
 import {mapGetters} from "vuex";
 import NavbarComp from "@/components/NavbarComp";
 import FooterComp from "@/components/FooterComp";
+import axios from "axios";
 
 export default {
   name: 'App',
@@ -31,10 +32,25 @@ export default {
       accessToken: 'login/getAccessToken'
     })
   },
-  mounted() {
+  created() {
     if (!this.accessToken) {
       this.$router.push({path: '/login', replace: true})
     }
-  }
+    setInterval(() => {
+      if (this.refreshToken) {
+        const refresh_url = this.restApi + '/api/token/refresh/'
+        const formData = new FormData()
+        formData.append('refresh', this.refreshToken)
+        axios.post(refresh_url, formData)
+            .then((response) => {
+              if (response.status === 200) {
+                this.setAccessToken({
+                  'access': response.data.access
+                })
+              }
+            })
+      }
+    }, 250000)
+  },
 };
 </script>
