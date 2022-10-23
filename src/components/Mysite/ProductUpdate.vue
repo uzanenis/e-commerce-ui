@@ -23,6 +23,7 @@
       <v-card-title>
         <span class="text-h5">Product Edit</span>
       </v-card-title>
+
       <v-card-text>
         <v-container>
           <v-row>
@@ -39,7 +40,7 @@
                   :items="brands"
                   item-text="name"
                   item-value="id"
-                  v-model="productData.brand"
+                  v-model="computerData.brand"
               ></v-autocomplete>
             </v-col>
 
@@ -55,7 +56,7 @@
                   :items="oss"
                   item-text="name"
                   item-value="id"
-                  v-model="productData.os"
+                  v-model="computerData.os"
               ></v-autocomplete>
             </v-col>
 
@@ -71,7 +72,7 @@
                   :items="memories"
                   item-text="memory_size"
                   item-value="id"
-                  v-model="productData.memory"
+                  v-model="computerData.memory"
               ></v-autocomplete>
             </v-col>
 
@@ -89,7 +90,7 @@
                   :items="cpus"
                   item-text="full_cpu"
                   item-value="id"
-                  v-model="productData.cpu"
+                  v-model="computerData.cpu"
               ></v-autocomplete>
             </v-col>
 
@@ -105,7 +106,7 @@
                   :items="disks"
                   item-text="full_disk"
                   item-value="id"
-                  v-model="productData.disk"
+                  v-model="computerData.disk"
               ></v-autocomplete>
             </v-col>
           </v-row>
@@ -118,7 +119,7 @@
                   solo
                   dense
                   label="Model Number"
-                  v-model="productData.model_number"
+                  v-model="computerData.model_number"
               ></v-text-field>
             </v-col>
             <v-col cols="4">
@@ -137,9 +138,8 @@
                   rounded
                   solo
                   dense
-                  type="number"
                   label="Screen Size"
-                  v-model="productData.screen_size"
+                  v-model="computerData.screen_size"
                   hint="Sadece sayı giriniz"
               ></v-text-field>
             </v-col>
@@ -250,19 +250,22 @@ export default {
       price: null,
       image: null,
       website: null,
-      point: null,
+      score: null,
+    },
+    computerData: {
       brand: null,
       os: null,
       memory: null,
       cpu: null,
       disk: null,
+      screen_size: null,
       model_number: null,
       serial_number: null,
-      screen_size: null,
-    },
+    }
   }),
   created() {
     this.productData = JSON.parse(JSON.stringify(this.product))
+    this.computerData = JSON.parse(JSON.stringify(this.product.computer_data))
   },
 
   methods: {

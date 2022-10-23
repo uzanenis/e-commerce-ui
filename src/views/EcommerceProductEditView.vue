@@ -58,7 +58,6 @@ export default {
   data: () => ({
     search: '',
     dialog: false,
-    products: [],
   }),
   computed: {
     ...mapGetters({
@@ -97,30 +96,10 @@ export default {
     },
   },
 
-  mounted() {
-    this.getProductList();
-  },
   created() {
     this.initialize()
   },
 
-  methods: {
-    getProductList() {
-      const fetchProductURL = this.getRestApi + '/product/productlistcreate/';
-      axios.get(fetchProductURL, {
-        headers: {
-          'Authorization': 'Bearer ' + this.getAccessToken,
-          'Content-Type': 'application/json',
-        }
-      })
-          .then(response => {
-            if (response.status === 200) {
-              this.products = response.data
-            } else console.log(response)
-          })
-          .catch(err => console.log(err))
-    }
-  }
 }
 </script>
 
