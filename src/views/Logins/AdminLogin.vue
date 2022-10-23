@@ -3,7 +3,7 @@
     <v-row justify="center" align="center" dense>
       <v-col cols="12" md="6">
         <v-card class="d-flex justify-center align-center fill-height logoColumn" style="height: 95vh;" elevation="0" color="primary">
-          <a href="/" title="Kou Logo" target="_blank">
+          <a href="/public" title="Kou Logo" target="_blank">
             <v-img
                 src="https://www.freelogovectors.net/wp-content/uploads/2018/03/kocaeli-universitesi-logo.png"
                 alt="koulogo"

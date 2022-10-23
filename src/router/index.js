@@ -1,15 +1,15 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 // import HomeView from '../views/HomeView.vue'
-import ItemList from "@/views/ProductView";
-import Login from "@/views/Login";
-import ProductDetail from "@/components/ProductDetail";
+import ItemList from "@/views/Product/ProductView";
+import Login from "@/views/Logins/Login";
+import ProductDetail from "@/components/Product/ProductDetail";
 import HomeView from "@/views/HomeView";
-import EcommerceView from "@/views/EcommerceView";
-import EcommerceHomeView from "@/views/EcommerceHomeView";
-import EcommerceProductEditView from "@/views/EcommerceProductEditView";
-import AdminLogin from "@/views/AdminLogin";
-import SearchedProducts from "@/views/SearchedProducts";
+import EcommerceView from "@/views/Ecommerce/EcommerceView";
+import EcommerceHomeView from "@/views/Ecommerce/EcommerceHomeView";
+import EcommerceProductEditView from "@/views/Ecommerce/EcommerceProductEditView";
+import AdminLogin from "@/views/Logins/AdminLogin";
+import SearchedProducts from "@/views/Product/SearchedProducts";
 
 Vue.use(VueRouter)
 

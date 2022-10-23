@@ -45,7 +45,6 @@
 import CreateProduct from "@/components/Mysite/CreateProduct";
 import ProductDelete from "@/components/Mysite/ProductDelete";
 import ProductUpdate from "@/components/Mysite/ProductUpdate";
-import axios from "axios";
 import {mapGetters} from "vuex";
 
 export default {
