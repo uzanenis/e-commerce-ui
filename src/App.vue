@@ -13,7 +13,7 @@
 
 <script>
 
-import {mapGetters} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 import NavbarComp from "@/components/NavbarComp";
 import FooterComp from "@/components/FooterComp";
 import axios from "axios";
@@ -29,7 +29,14 @@ export default {
   }),
   computed: {
     ...mapGetters({
-      accessToken: 'login/getAccessToken'
+      accessToken: 'login/getAccessToken',
+      refreshToken: 'login/getRefreshToken',
+      restApi: 'login/getRestApi',
+    })
+  },
+  methods: {
+    ...mapActions({
+      setAccessToken: 'login/setAccessToken',
     })
   },
   created() {
@@ -44,9 +51,7 @@ export default {
         axios.post(refresh_url, formData)
             .then((response) => {
               if (response.status === 200) {
-                this.setAccessToken({
-                  'access': response.data.access
-                })
+                this.setAccessToken({access: response.data.access})
               }
             })
       }

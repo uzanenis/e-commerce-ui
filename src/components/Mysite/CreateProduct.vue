@@ -243,6 +243,7 @@ export default {
     this.getMemoryList()
     this.getDiskList()
     this.getCPUList()
+
   },
   methods: {
     getBrandList() {
@@ -336,18 +337,20 @@ export default {
       axios.post(computerCreateURL, computerData, config)
           .then(response => {
             if (response.status === 201) {
-              console.log("Computer created");
               this.createProduct(response.data.id)
-              if (response.status === 500) {
+              console.log("Computer created");
+              setTimeout(() => {
+                this.btnLoading = false;
                 this.dialog = false;
-              }
+              }, 1000);
             } else console.log(response);
           })
           .catch(err => console.log(err))
     },
 
     createProduct(id) {
-      const createProductURL = this.getRestApi + '/product/productcreate';
+
+      const createProductURL = this.getRestApi + '/product/productcreate/';
       this.full_product_data.computer_id = id;
       const productData = new FormData()
       productData.append('computer', this.full_product_data.computer_id);
@@ -367,7 +370,7 @@ export default {
               console.log("Product Created")
               this.btnLoading = false;
               this.dialog = false;
-            } else console.log(response)
+            } else console.log(response);
           })
           .catch(err => console.log(err))
     }
