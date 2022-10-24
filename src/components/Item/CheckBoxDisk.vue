@@ -32,7 +32,7 @@ export default {
       },
       {
         id: 3,
-        name: "HDD - SSD"
+        name: "HDD-SSD"
       }
     ]
   }),
