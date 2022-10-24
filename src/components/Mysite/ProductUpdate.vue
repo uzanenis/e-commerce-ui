@@ -346,15 +346,15 @@ export default {
       myFormData.append('price', this.productData.price);
       myFormData.append('post_image', this.productData.image);
       myFormData.append('website', this.productData.website);
-      myFormData.append('score', this.productData.point);
-      myFormData.append('brand', this.productData.brand);
-      myFormData.append('os', this.productData.os);
-      myFormData.append('memory', this.productData.memory);
-      myFormData.append('cpu', this.productData.cpu);
-      myFormData.append('disk', this.productData.disk);
-      myFormData.append('model_number', this.productData.model_number);
-      myFormData.append('serial_number', this.productData.serial_number);
-      myFormData.append('screen_size', this.productData.screen_size);
+      myFormData.append('score', this.productData.score);
+      myFormData.append('brand', this.computerData.brand);
+      myFormData.append('os', this.computerData.os);
+      myFormData.append('memory', this.computerData.memory);
+      myFormData.append('cpu', this.computerData.cpu);
+      myFormData.append('disk', this.computerData.disk);
+      myFormData.append('model_number', this.computerData.model_number);
+      myFormData.append('serial_number', this.computerData.serial_number);
+      myFormData.append('screen_size', this.computerData.screen_size);
       const config = {
         headers: {
           'Authorization': 'Bearer ' + this.getAccessToken,
