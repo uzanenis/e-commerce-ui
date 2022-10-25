@@ -20,7 +20,7 @@
           <v-card
             class="pa-6"
           >
-            <v-card-title>{{getProductTitle(this.productDetail)}}</v-card-title>
+            <v-card-title class="primary-color">{{getProductTitle(this.productDetail)}}</v-card-title>
             <v-card-text>
               <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci cum cumque dolorum hic mollitia
                 placeat reprehenderit sapiente voluptatibus? Accusamus eaque harum magni maxime officia quisquam. Dicta
@@ -28,6 +28,7 @@
               </div>
             </v-card-text>
             <v-rating
+              background-color="primary"
               hover
               half-increments
               readonly
@@ -36,7 +37,7 @@
             >
             </v-rating>
             <v-card-actions>
-              <div class="price-text font-weight-bold">
+              <div class="price-text font-weight-bold primary-color">
                 {{this.productDetail.price}} TL
               </div>
             </v-card-actions>
@@ -166,6 +167,9 @@ export default {
 <style scoped>
  .tableHead{
    width: 100%;
+ }
+ .primary-color{
+   color: #159b44;
  }
  .productImage{
    border-radius: 10px;

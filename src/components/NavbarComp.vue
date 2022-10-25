@@ -78,7 +78,7 @@
         <span class="navbar-text">Shop</span>
       </a>
       <v-divider vertical></v-divider>
-      <a @click="$router.push({path: '/ecommerce'})" class="v-btn">
+      <a @click="$router.push({path: '/ecommerce/login'})" class="v-btn">
         <span class="navbar-text pa-3">Ecommerce</span>
       </a>
     </v-bottom-navigation>
@@ -106,7 +106,7 @@ export default {
     filteredList() {
       this.$store.state.searchValue = this.search
       this.$store.state.searchedProducts = this.fetchProducts.filter(product => {
-        return product.computer_data.brand_data.name.toLowerCase().includes(this.formatModelNumber(this.search)) || product.computer_data.model_number.toLowerCase().includes(this.formatModelNumber(this.search)) || product.website.toLowerCase().replaceAll(' ', '').includes(this.formatModelNumber(this.search))
+        return product.computer_data.brand_data.name.toLowerCase().includes(this.formatModelNumber(this.search)) || this.formatModelNumber(product.computer_data.model_number.toLowerCase()).includes(this.formatModelNumber(this.search)) || product.website.toLowerCase().replaceAll(' ', '').includes(this.formatModelNumber(this.search))
       })
       this.$router.push({path: '/search'})
     },

@@ -24,6 +24,7 @@
                              justify="center"
                       >
                         <v-img
+                            class="carousel-image"
                             contain
                             width="250"
                             height="100%"
@@ -78,5 +79,8 @@ export default {
   }
   .all-items-button{
     color: #159b44;
+  }
+  .carousel-image{
+    cursor: pointer;
   }
 </style>

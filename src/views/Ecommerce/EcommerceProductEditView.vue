@@ -1,5 +1,14 @@
 <template>
   <div style="height: 100vh">
+    <v-snackbar
+      v-model="$store.state.snackbar.status"
+      :color="$store.state.snackbar.color"
+      absolute
+      top
+      right
+    >
+      {{ $store.state.snackbar.text }}
+    </v-snackbar>
     <v-data-table
         :headers="headers"
         :items="fetchProducts"

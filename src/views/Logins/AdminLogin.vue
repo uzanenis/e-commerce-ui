@@ -80,6 +80,7 @@ export default {
     }),
     login() {
       this.$refs.form.validate()
+      this.$store.state.ecommerceUsername = this.username
       const loginUrl = this.restApi + '/api/token/';
       const loginForm = new FormData();
       loginForm.append('username', this.username);

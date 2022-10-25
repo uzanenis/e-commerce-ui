@@ -15,19 +15,22 @@
                 class="productListCard"
                 @click="$router.push({path: `/ecommerce/product/${product.id}`})"
             >
-              <v-img
-                  contain
-                  height="179px"
-                  width="179px"
-                  :src="product.image ? product.image : product.post_image"
-              >
-              </v-img>
+              <div class="d-flex justify-center align-center">
+                <v-img
+                    contain
+                    height="179px"
+                    width="179px"
+                    :src="product.image ? product.image : product.post_image"
+                >
+                </v-img>
+              </div>
+
               <div class="productCardContainer">
                 <div>
                   <div class="productCardModel">{{ product.computer_data.model_number }}</div>
                   <h3 class="productCardTitle">{{ getProductTitle(product) }}</h3>
                 </div>
-                <div class="productCardCost mt-7">
+                <div class="productCardCost">
                   <div class="productCardPrice">{{ product.price }} TL</div>
                   <div class="productCardCargo">Kargo Bedava</div>
                 </div>
@@ -99,6 +102,7 @@ export default {
    overflow: hidden;
  }
  .productCardTitle{
+   height: 65px;
    font-size: 12px;
    margin: 0;
    padding: 0;
@@ -106,6 +110,9 @@ export default {
    line-height: 18px;
  }
 
+.productCardCost{
+  margin-top: 20px;
+}
  .productCardPrice{
    font-size: 32px;
    color: #159b44;

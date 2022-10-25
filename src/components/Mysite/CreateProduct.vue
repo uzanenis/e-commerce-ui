@@ -142,7 +142,7 @@
           </v-row>
 
           <v-row>
-            <v-col cols="4">
+            <v-col cols="6">
               <v-text-field
                   filled
                   rounded
@@ -154,17 +154,7 @@
                   hint="Sadece sayı giriniz"
               ></v-text-field>
             </v-col>
-            <v-col cols="4">
-              <v-text-field
-                  filled
-                  rounded
-                  solo
-                  dense
-                  label="Website"
-                  v-model="full_product_data.website"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="4">
+            <v-col cols="6">
               <v-file-input
                   filled
                   rounded
@@ -227,7 +217,7 @@ export default {
     full_product_data: {
       price: null,
       image: null,
-      website: null,
+      website: "KOU-Tech",
       computer_id: null
     }
   }),
@@ -368,11 +358,23 @@ export default {
           .then(response => {
             if (response.status === 201) {
               console.log("Product Created")
+              this.$store.state.snackbar.text = 'Ürün Başarıyla Oluşturuldu'
+              this.$store.state.snackbar.status = true
+              this.$store.state.snackbar.color = 'success'
               this.btnLoading = false;
               this.dialog = false;
-            } else console.log(response);
+            }
           })
-          .catch(err => console.log(err))
+          .catch(err => {
+            if(err.response.status === 400){
+                console.log("Product cannot Create")
+                this.$store.state.snackbar.text = 'Ürün Oluşturulamıyor Duplicate Durumunda!'
+                this.$store.state.snackbar.status = true
+                this.$store.state.snackbar.color = 'error'
+                this.btnLoading = false;
+                this.dialog = false;
+              } else console.log(err)
+          })
     }
 
   }

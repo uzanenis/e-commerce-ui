@@ -6,6 +6,7 @@ import login from "@/store/login/login";
 import product from "@/store/product/product";
 export default new Vuex.Store({
   state: {
+    ecommerceUsername: '',
     search: '',
     selectedBrands: [],
     selectedOSs: [],
@@ -19,6 +20,11 @@ export default new Vuex.Store({
     selectedCPUType: '',
     searchedProducts: [],
     searchValue: '',
+    snackbar:{
+      text: '',
+      status: false,
+      color: ''
+    }
   },
   getters: {
   },
