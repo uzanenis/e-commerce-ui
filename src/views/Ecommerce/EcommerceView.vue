@@ -19,7 +19,7 @@
                   contain
                   height="179px"
                   width="179px"
-                  :src="product.image"
+                  :src="product.image ? product.image : product.post_image"
               >
               </v-img>
               <div class="productCardContainer">
