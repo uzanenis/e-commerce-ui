@@ -12,6 +12,7 @@ export default new Vuex.Store({
     selectedOSs: [],
     selectedMemories: [],
     selectedCPUs: [],
+    selectedSizes: [],
     selectedPoint: '',
     startPrice: '',
     endPrice: '',

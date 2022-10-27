@@ -63,7 +63,7 @@ export default {
       products: 'product/getProducts',
     }),
     productCount(){
-      return this.products.filter(product => product.website === "KOU-Tech").length
+      return this.products.filter(product => product.website === "KOUTech").length
     }
   }
 }

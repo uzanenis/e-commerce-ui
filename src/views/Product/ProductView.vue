@@ -36,11 +36,18 @@
               <v-card-title>RAM Bellek</v-card-title>
               <check-box-memory :items="memories" :filtered="getFiltredProductaToMemory"></check-box-memory>
               <v-divider/>
+              <v-card-title>Ekran Boyutu</v-card-title>
+              <check-box-screen :filtered="getFiltredProductaToScreen"></check-box-screen>
+              <v-divider/>
               <v-card-title>İşlemci Markası</v-card-title>
               <check-box-c-p-u :filtered="getFiltredaToCPU"></check-box-c-p-u>
               <v-divider/>
               <v-card-title>Disk Türü</v-card-title>
               <check-box-disk :items="disks" :filtered="getFiltredProductsaToDisk"></check-box-disk>
+              <v-divider/>
+              <v-btn outlined small class="success pa-2 mx-auto" dark @click="getMultiFiltred">
+                Filtrele
+              </v-btn>
 
             </template>
           </v-card>
@@ -68,6 +75,7 @@
 
 <script>
 import CheckBox from "@/components/Item/CheckBox";
+import CheckBoxScreen from "@/components/Item/CheckBoxScreen";
 import ProductCard from "@/components/Product/ProductCard";
 import RangeSlider from "@/components/Item/RangeSlider";
 import RatingFilter from "@/components/Item/RatingFilter";
@@ -91,6 +99,7 @@ export default {
     CheckBoxDisk,
     CheckBoxOS,
     CheckBoxCPU,
+    CheckBoxScreen
   },
   computed: {
     ...mapGetters({
@@ -364,6 +373,52 @@ export default {
           })
     },
 
+    getFiltredProductaToScreen() {
+      console.log(this.$store.state.selectedSizes)
+      this.productsJSON = {}
+      this.productJSONArray = []
+      console.log("It works")
+      const filteredURL = this.getRestApi + '/product/productparamsscreen/?screen=' + this.$store.state.selectedSizes.map(size => size.size).join('+');
+      axios.get(filteredURL, {
+        headers: {
+          'Authorization': 'Bearer ' + this.getAccessToken
+        }
+      })
+          .then(response => {
+            if(response.status === 200) {
+              this.filtredProducts = response.data
+              this.filtredProducts.forEach(product => {
+                if (this.filtredProducts.filter(p => this.formatModelNumber(product.computer_data.model_number) === this.formatModelNumber(p.computer_data.model_number)).length > 1) {
+                  this.productsJSON[this.formatModelNumber(product.computer_data.model_number)] = this.filtredProducts.filter(p => this.formatModelNumber(product.computer_data.model_number) === this.formatModelNumber(p.computer_data.model_number))
+                }
+              })
+              this.getCleanedProducts()
+            }
+          })
+    },
+
+    getMultiFiltred() {
+      this.productsJSON = {}
+      this.productJSONArray = []
+      console.log("It works")
+      const filteredURL = this.getRestApi + '/product/productmultifilter/?brand=' + this.$store.state.selectedBrands.map(brand => brand.name).join('+') +  '&points=' + this.$store.state.selectedPoint + '&price_start=' + this.$store.state.startPrice +  '&price_end=' + this.$store.state.endPrice  + '&os=' + this.$store.state.selectedOSs.map(os => os.name).join('+') + '&memory=' + this.$store.state.selectedMemories.map(ram => ram.memory_size).join('+')
+      axios.get(filteredURL, {
+        headers: {
+          'Authorization': 'Bearer ' + this.getAccessToken
+        }
+      })
+          .then(response => {
+            if(response.status === 200) {
+              this.filtredProducts = response.data
+              this.filtredProducts.forEach(product => {
+                if (this.filtredProducts.filter(p => this.formatModelNumber(product.computer_data.model_number) === this.formatModelNumber(p.computer_data.model_number)).length > 1) {
+                  this.productsJSON[this.formatModelNumber(product.computer_data.model_number)] = this.filtredProducts.filter(p => this.formatModelNumber(product.computer_data.model_number) === this.formatModelNumber(p.computer_data.model_number))
+                }
+              })
+              this.getCleanedProducts()
+            }
+          })
+    },
 
 
     getBrandList() {

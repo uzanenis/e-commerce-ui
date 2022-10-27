@@ -29,6 +29,7 @@ export default {
         return this.selected.includes(item.name)
       });
       this.$store.state.selectedOSs = this.selectedArrays
+      console.log(this.items)
       this.filtered()
     },
   },
