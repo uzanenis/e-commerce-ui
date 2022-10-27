@@ -9,8 +9,7 @@
               max-width="335"
               max-height="435"
               class="mx-auto productImage"
-              :src="this.productDetail.image"
-
+              :src="this.productDetail.image ? this.productDetail.image : $store.state.productTempImage"
           >
           </v-img>
         </v-col>

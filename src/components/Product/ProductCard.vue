@@ -17,7 +17,7 @@
               class="rounded card-image"
               max-height="200"
               max-width="200"
-              :src="myproduct[0].image"
+              :src="myproduct[0].image ? myproduct[0].image : myproduct[1].image"
               @click="$router.push({path: `/product/${myproduct[0].id}`})"
           >
           </v-img>
@@ -29,23 +29,24 @@
             cols="8"
         >
           <v-row>
-            <div class="card-title font-weight-bold mt-3" @click="$router.push({path: `/product/${myproduct[0].id}`})">
+            <div class="card-title font-weight-bold mt-3"
+                 @click="$router.push({path: `/product/${myproduct[0].id}`});">
               {{ getProductTitle(myproduct[0]) }}
             </div>
           </v-row>
           <v-row>
             <v-col class="mt-3" v-for="subProduct in myproduct" :key="subProduct.id" :cols="12 / myproduct.length">
-                <v-btn
-                    max-width="85"
-                    class="rounded-pill pa-4"
-                    :href="subProduct.url"
-                    target="_blank"
-                >
-                  <v-img
-                      max-width="70"
-                      :src="getWebsite(subProduct.website)"
-                  ></v-img>
-                </v-btn>
+              <v-btn
+                  max-width="85"
+                  class="rounded-pill pa-4"
+                  :href="subProduct.url"
+                  target="_blank"
+              >
+                <v-img
+                    max-width="70"
+                    :src="getWebsite(subProduct.website)"
+                ></v-img>
+              </v-btn>
               <div class="card-price mt-4 ml-3 font-weight-bold mt-2">
                 {{ subProduct.price }} TL
               </div>
@@ -80,17 +81,17 @@ export default {
       else
         return ''
     },
-    getWebsite(subProduct){
-      if(subProduct === 'Trendyol')
+    getWebsite(subProduct) {
+      if (subProduct === 'Trendyol')
         return '/img/trendyol_logo.png'
-      else if(subProduct === 'n11')
+      else if (subProduct === 'n11')
         return '/img/n11_logo.png'
-      else if(subProduct === 'Vatan Bilgisayar')
+      else if (subProduct === 'Vatan Bilgisayar')
         return '/img/vatan_logo.png.jpeg'
-      else if(subProduct === 'Teknosa')
+      else if (subProduct === 'Teknosa')
         return '/img/teknosa_logo.png'
-      else if(subProduct === 'Kou Ecommerce')
-        return ''
+      else if (subProduct === 'KOUTech')
+        return '/img/koutech.png'
     }
   },
 
@@ -98,20 +99,7 @@ export default {
 </script>
 
 <style scoped>
-  .card-container{
-  }
-
-  .card-website{
-
-  }
-  .card-score{
-
-  }
-
-  .card-price{
-
-  }
-
-  .card-image{
-  }
+.card-image {
+  cursor: pointer;
+}
 </style>

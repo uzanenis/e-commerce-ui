@@ -28,7 +28,7 @@
                             contain
                             width="250"
                             height="100%"
-                            :src="products[+index + i].image"
+                            :src="products[+index + i].image ? products[+index + i].image : $store.state.productTempImage"
                             @click="$router.push({path: `/product/${products[+index + i].id}`})"
                         >
 

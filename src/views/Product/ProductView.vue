@@ -45,7 +45,7 @@
               <v-card-title>Disk Türü</v-card-title>
               <check-box-disk :items="disks" :filtered="getFiltredProductsaToDisk"></check-box-disk>
               <v-divider/>
-              <v-btn outlined small class="success pa-2 mx-auto" dark @click="getMultiFiltred">
+              <v-btn large rounded block class="primary mt-0" dark @click="getMultiFiltred">
                 Filtrele
               </v-btn>
 
@@ -484,6 +484,9 @@ export default {
 
     getCleanedProducts(){
       for(let key in this.productsJSON){
+        if (this.productsJSON[key].length === 2) {
+          console.log(this.productsJSON[key])
+        }
         this.productJSONArray.push(this.productsJSON[key])
       }
       return this.productJSONArray;

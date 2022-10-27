@@ -11,6 +11,7 @@
           v-bind="attrs"
           v-on="on"
       >
+        <v-icon>mdi-plus</v-icon>
         Yeni Ürün
       </v-btn>
     </template>

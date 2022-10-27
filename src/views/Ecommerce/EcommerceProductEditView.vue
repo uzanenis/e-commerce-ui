@@ -11,10 +11,11 @@
     </v-snackbar>
     <v-data-table
         :headers="headers"
-        :items="fetchProducts"
+        :items="getMyItems"
         item-key="name"
         class="elevation-1"
         :search="search"
+        :items-per-page="getMyItems.length"
     >
       <template v-slot:top>
         <v-toolbar
@@ -73,6 +74,9 @@ export default {
       getAccessToken: 'login/getAccessToken',
       fetchProducts: 'product/getProducts',
     }),
+    getMyItems() {
+      return this.fetchProducts.filter(product => product.website === 'KOUTech')
+    },
     headers() {
       return [
         {

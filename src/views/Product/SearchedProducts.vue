@@ -18,13 +18,15 @@
                 class="productListCard"
                 @click="$router.push({path: `/ecommerce/product/${product.id}`})"
             >
-              <v-img
-                  contains
-                  height="179px"
-                  width="179px"
-                  :src="product.image ? product.image : product.post_image"
-              >
-              </v-img>
+              <div class="d-flex justify-center align-center">
+                <v-img
+                    contain
+                    height="179px"
+                    width="179px"
+                    :src="product.image ? product.image : emptyImage(product)"
+                >
+                </v-img>
+              </div>
               <div class="productCardContainer">
                 <div>
                   <div class="productCardModel">{{ product.computer_data.model_number }}</div>
@@ -65,6 +67,26 @@ export default {
     })
   },
   methods: {
+    emptyImage(product) {
+      let brand = product.computer_data.brand_data.name
+      if (brand === 'APPLE') {
+        return 'https://cdn.dsmcdn.com/ty537/product/media/images/20220920/19/177543929/574138741/1/1_org_zoom.jpg'
+      } else if (brand === 'ASUS') {
+        return 'https://cdn.dsmcdn.com/ty37/product/media/images/20210323/12/74641944/156489115/0/0_org_zoom.jpg'
+      } else if (brand === 'DELL') {
+        return 'https://cdn.dsmcdn.com/ty438/product/media/images/20220523/13/115087487/485907190/1/1_org_zoom.jpg'
+      } else if (brand === 'HP') {
+        return 'https://cdn.dsmcdn.com/ty532/product/media/images/20220912/18/174534496/568285518/1/1_org_zoom.jpg'
+      } else if (brand === 'LENOVO') {
+        return 'https://cdn.dsmcdn.com/ty487/product/media/images/20220721/16/147164647/525083729/1/1_org_zoom.jpg'
+      } else if (brand === 'MSI') {
+        return 'https://cdn.dsmcdn.com/ty562/product/media/images/20221013/9/192385279/595120142/1/1_org_zoom.jpg'
+      } else if (brand === 'MONSTER') {
+        return 'https://cdn.dsmcdn.com/ty510/product/media/images/20220819/11/162740181/538198125/1/1_org_zoom.jpg'
+      } else if (brand === 'ACER') {
+        return 'https://cdn.dsmcdn.com/ty554/product/media/images/20221006/11/187509478/590468369/1/1_org_zoom.jpg'
+      }
+    },
     getProductTitle(products) {
       let productTitle = products.computer_data.brand_data.name + " " + products.computer_data.model_number + " "
           + products.computer_data.cpu_data.cpu_type + " " + products.computer_data.cpu_data.cpu_generation +
@@ -108,6 +130,7 @@ export default {
   overflow: hidden;
 }
 .productCardTitle{
+  height: 65px;
   font-size: 12px;
   margin: 0;
   padding: 0;
@@ -115,6 +138,9 @@ export default {
   line-height: 18px;
 }
 
+.productCardCost{
+  margin-top: 20px;
+}
 .productCardPrice{
   font-size: 32px;
   color: #159b44;
